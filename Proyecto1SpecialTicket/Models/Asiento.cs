@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Proyecto1SpecialTicket.Models;
 
@@ -14,17 +15,24 @@ public partial class Asiento
 
     public int Cantidad { get; set; }
 
+    [DisplayName("Fecha de creación")]
     public DateTime CreatedAt { get; set; }
 
+    [DisplayName("Creado por")]
     public int CreatedBy { get; set; }
 
+    [DisplayName("Fecha de actualización")]
     public DateTime UpdatedAt { get; set; }
 
+    [DisplayName("Actualizado por")]
     public int UpdatedBy { get; set; }
 
+    [DisplayName("Activo")]
     public bool Active { get; set; }
 
+    [DisplayName("Id Escenario")]
     public int IdEscenario { get; set; }
 
+    [DisplayName("Id Escenario")]
     public virtual Escenario IdEscenarioNavigation { get; set; } = null!;
 }
