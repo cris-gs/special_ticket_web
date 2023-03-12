@@ -11,6 +11,7 @@ public partial class Asiento
 {
     public int Id { get; set; }
 
+    [DisplayName("Descripción")]
     public string Descripcion { get; set; } = null!;
 
     public int Cantidad { get; set; }
@@ -30,9 +31,9 @@ public partial class Asiento
     [DisplayName("Activo")]
     public bool Active { get; set; }
 
-    [DisplayName("Id Escenario")]
+    [DisplayName("Id escenario")]
     public int IdEscenario { get; set; }
 
-    [DisplayName("Id Escenario")]
+    [DisplayName("Id escenario")]
     public virtual Escenario IdEscenarioNavigation { get; set; } = null!;
 }

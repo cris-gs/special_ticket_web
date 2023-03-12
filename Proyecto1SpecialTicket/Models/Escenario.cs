@@ -10,6 +10,7 @@ public partial class Escenario
 
     public string Nombre { get; set; } = null!;
 
+    [DisplayName("Localización")]
     public string Localizacion { get; set; } = null!;
 
     [DisplayName("Fecha de creación")]

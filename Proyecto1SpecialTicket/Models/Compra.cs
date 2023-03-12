@@ -31,15 +31,15 @@ public partial class Compra
     [DisplayName("Activo")]
     public int Active { get; set; }
 
-    [DisplayName("Id Cliente")]
+    [DisplayName("Id cliente")]
     public int IdCliente { get; set; }
 
-    [DisplayName("Id Entrada")]
+    [DisplayName("Id entrada")]
     public int IdEntrada { get; set; }
 
-    [DisplayName("Id Cliente")]
+    [DisplayName("Id cliente")]
     public virtual Usuario IdClienteNavigation { get; set; } = null!;
 
-    [DisplayName("Id Cliente")]
+    [DisplayName("Id cliente")]
     public virtual Entrada IdEntradaNavigation { get; set; } = null!;
 }

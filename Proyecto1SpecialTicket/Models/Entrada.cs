@@ -28,11 +28,11 @@ public partial class Entrada
     [DisplayName("Activo")]
     public bool Active { get; set; }
 
-    [DisplayName("Id Evento")]
+    [DisplayName("Id evento")]
     public int IdEvento { get; set; }
 
     public virtual ICollection<Compra> Compras { get; } = new List<Compra>();
 
-    [DisplayName("Id Evento")]
+    [DisplayName("Id evento")]
     public virtual Evento IdEventoNavigation { get; set; } = null!;
 }
