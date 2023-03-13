@@ -1,0 +1,205 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Proyecto1SpecialTicket
+build_property.RootNamespace = Proyecto1SpecialTicket
+build_property.ProjectDir = C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Asientoes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Asientoes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Asientoes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Asientoes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Asientoes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Compras/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcHJhc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Compras/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcHJhc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Compras/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcHJhc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Compras/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcHJhc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Compras/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcHJhc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Entradas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Entradas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Entradas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Entradas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Entradas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Escenarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNjZW5hcmlvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Escenarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNjZW5hcmlvc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Escenarios/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNjZW5hcmlvc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Escenarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNjZW5hcmlvc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Escenarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNjZW5hcmlvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Eventoes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Eventoes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Eventoes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Eventoes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Eventoes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEscenarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0VzY2VuYXJpb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEscenarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0VzY2VuYXJpb3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEscenarios/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0VzY2VuYXJpb3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEscenarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0VzY2VuYXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEscenarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0VzY2VuYXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEventoes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEventoes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEventoes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEventoes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/TipoEventoes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Usuarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Usuarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Usuarios/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Usuarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Personal/Desktop/TEC/Semestre 7/Introducción al Desarrollo de Páginas Web/Semana 5/special_ticket_web/Proyecto1SpecialTicket/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-pthrj9sluo
