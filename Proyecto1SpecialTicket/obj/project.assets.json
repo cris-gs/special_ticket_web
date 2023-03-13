@@ -10296,19 +10296,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Personal\\.nuget\\packages\\": {}
+    "C:\\Users\\crist\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Personal\\Desktop\\TEC\\Semestre 7\\Introducción al Desarrollo de Páginas Web\\Semana 5\\special_ticket_web\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket.csproj",
+      "projectUniqueName": "D:\\crist\\TEC\\Semestre 7\\PAGINAS WEB\\Proyecto1\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket.csproj",
       "projectName": "Proyecto1SpecialTicket",
-      "projectPath": "C:\\Users\\Personal\\Desktop\\TEC\\Semestre 7\\Introducción al Desarrollo de Páginas Web\\Semana 5\\special_ticket_web\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket.csproj",
-      "packagesPath": "C:\\Users\\Personal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Personal\\Desktop\\TEC\\Semestre 7\\Introducción al Desarrollo de Páginas Web\\Semana 5\\special_ticket_web\\Proyecto1SpecialTicket\\obj\\",
+      "projectPath": "D:\\crist\\TEC\\Semestre 7\\PAGINAS WEB\\Proyecto1\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket.csproj",
+      "packagesPath": "C:\\Users\\crist\\.nuget\\packages\\",
+      "outputPath": "D:\\crist\\TEC\\Semestre 7\\PAGINAS WEB\\Proyecto1\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Personal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\crist\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
