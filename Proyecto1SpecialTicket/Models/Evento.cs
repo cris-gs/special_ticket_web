@@ -39,8 +39,8 @@ public partial class Evento
     public virtual ICollection<Entrada> Entrada { get; } = new List<Entrada>();
 
     [DisplayName("Id escenario")]
-    public virtual Escenario IdEscenarioNavigation { get; set; } = null!;
+    public virtual Escenario? IdEscenarioNavigation { get; set; }
 
     [DisplayName("Id tipo evento")]
-    public virtual TipoEvento IdTipoEventoNavigation { get; set; } = null!;
+    public virtual TipoEvento? IdTipoEventoNavigation { get; set; }
 }

@@ -25,7 +25,7 @@ public partial class TipoEvento
     public int UpdatedBy { get; set; }
 
     [DisplayName("Activo")]
-    public int Active { get; set; }
+    public bool Active { get; set; }
 
     public virtual ICollection<Evento> Eventos { get; } = new List<Evento>();
 }
