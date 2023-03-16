@@ -60,6 +60,7 @@ public partial class SpecialticketContext : DbContext
                 .HasCharSet("utf8mb3");
             entity.Property(e => e.IdEscenario).HasColumnName("id_escenario");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
@@ -86,6 +87,7 @@ public partial class SpecialticketContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Cantidad).HasColumnName("cantidad");
             entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Created_At");
             entity.Property(e => e.CreatedBy).HasColumnName("Created_By");
@@ -93,11 +95,13 @@ public partial class SpecialticketContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("fecha_pago");
             entity.Property(e => e.FechaReserva)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("fecha_reserva");
             entity.Property(e => e.IdCliente).HasColumnName("id_cliente");
             entity.Property(e => e.IdEntrada).HasColumnName("id_entrada");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
 
@@ -136,6 +140,7 @@ public partial class SpecialticketContext : DbContext
                 .UseCollation("utf8mb3_spanish_ci")
                 .HasCharSet("utf8mb3");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
@@ -169,6 +174,7 @@ public partial class SpecialticketContext : DbContext
                 .UseCollation("utf8mb3_spanish_ci")
                 .HasCharSet("utf8mb3");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
@@ -201,6 +207,7 @@ public partial class SpecialticketContext : DbContext
             entity.Property(e => e.IdEscenario).HasColumnName("id_escenario");
             entity.Property(e => e.IdTipoEvento).HasColumnName("id_tipo_evento");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
@@ -237,6 +244,7 @@ public partial class SpecialticketContext : DbContext
                 .HasCharSet("utf8mb3");
             entity.Property(e => e.IdEscenario).HasColumnName("id_escenario");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
@@ -265,6 +273,7 @@ public partial class SpecialticketContext : DbContext
                 .UseCollation("utf8mb3_spanish_ci")
                 .HasCharSet("utf8mb3");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
@@ -274,14 +283,9 @@ public partial class SpecialticketContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity
-                .ToTable("usuario")
-                .HasCharSet("utf8mb3")
-                .UseCollation("utf8mb3_spanish_ci");
+            entity.ToTable("usuario");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Correo)
                 .HasMaxLength(100)
                 .HasColumnName("correo");
@@ -296,6 +300,7 @@ public partial class SpecialticketContext : DbContext
             entity.Property(e => e.Rol).HasColumnName("rol");
             entity.Property(e => e.Telefono).HasColumnName("telefono");
             entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");

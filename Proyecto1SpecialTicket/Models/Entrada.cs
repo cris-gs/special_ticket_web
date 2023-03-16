@@ -7,6 +7,8 @@ public partial class Entrada
 {
     public int Id { get; set; }
 
+    public int Disponibles { get; set; }
+
     public string TipoAsiento { get; set; } = null!;
 
     public decimal Precio { get; set; }
@@ -25,5 +27,5 @@ public partial class Entrada
 
     public virtual ICollection<Compra> Compras { get; } = new List<Compra>();
 
-    public virtual Evento IdEventoNavigation { get; set; } = null!;
+    public virtual Evento? IdEventoNavigation { get; set; }
 }

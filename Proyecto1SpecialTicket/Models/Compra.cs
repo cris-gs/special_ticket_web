@@ -21,13 +21,13 @@ public partial class Compra
 
     public int UpdatedBy { get; set; }
 
-    public int Active { get; set; }
+    public bool Active { get; set; }
 
     public int IdCliente { get; set; }
 
     public int IdEntrada { get; set; }
 
-    public virtual Usuario IdClienteNavigation { get; set; } = null!;
+    public virtual Usuario? IdClienteNavigation { get; set; }
 
-    public virtual Entrada IdEntradaNavigation { get; set; } = null!;
+    public virtual Entrada? IdEntradaNavigation { get; set; }
 }
