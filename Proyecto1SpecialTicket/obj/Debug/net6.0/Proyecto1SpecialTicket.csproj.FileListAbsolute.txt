@@ -568,3 +568,11 @@ C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas
 C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\obj\Debug\net6.0\Proyecto1SpecialTicket.csproj.CopyComplete
 C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\obj\Debug\net6.0\Proyecto1SpecialTicket.genruntimeconfig.cache
 C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\obj\Debug\net6.0\ref\Proyecto1SpecialTicket.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\obj\Debug\net6.0\Proyecto1SpecialTicket.MvcApplicationPartsAssemblyInfo.cs
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll

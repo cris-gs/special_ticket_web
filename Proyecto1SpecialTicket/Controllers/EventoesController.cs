@@ -9,6 +9,7 @@ using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
+    //[Authorize]
     public class EventoesController : Controller
     {
         private readonly SpecialticketContext _context;

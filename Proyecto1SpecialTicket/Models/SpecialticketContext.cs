@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Proyecto1SpecialTicket.Models;
 
-public partial class SpecialticketContext : DbContext
+public partial class SpecialticketContext : IdentityDbContext
 {
     public SpecialticketContext()
     {
@@ -37,6 +39,10 @@ public partial class SpecialticketContext : DbContext
         modelBuilder
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
+
+        modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+        modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+        modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
 
         modelBuilder.Entity<Asiento>(entity =>
         {

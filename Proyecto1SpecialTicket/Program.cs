@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Proyecto1SpecialTicket.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -10,6 +11,9 @@ builder.Services.AddDbContext<SpecialticketContext>(options =>
 {
     options.UseMySql(connection, ServerVersion.AutoDetect(connection));
 });
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<SpecialticketContext>();
 
 var app = builder.Build();
 
@@ -25,8 +29,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
