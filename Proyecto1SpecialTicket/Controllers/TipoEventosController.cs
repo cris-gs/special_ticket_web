@@ -9,22 +9,22 @@ using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
-    public class TipoEventoesController : Controller
+    public class TipoEventosController : Controller
     {
         private readonly SpecialticketContext _context;
 
-        public TipoEventoesController(SpecialticketContext context)
+        public TipoEventosController(SpecialticketContext context)
         {
             _context = context;
         }
 
-        // GET: TipoEventoes
+        // GET: TipoEventos
         public async Task<IActionResult> Index()
         {
               return View(await _context.TipoEventos.ToListAsync());
         }
 
-        // GET: TipoEventoes/Details/5
+        // GET: TipoEventos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.TipoEventos == null)
@@ -42,13 +42,13 @@ namespace Proyecto1SpecialTicket.Controllers
             return View(tipoEvento);
         }
 
-        // GET: TipoEventoes/Create
+        // GET: TipoEventos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: TipoEventoes/Create
+        // POST: TipoEventos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -64,7 +64,7 @@ namespace Proyecto1SpecialTicket.Controllers
             return View(tipoEvento);
         }
 
-        // GET: TipoEventoes/Edit/5
+        // GET: TipoEventos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.TipoEventos == null)
@@ -80,7 +80,7 @@ namespace Proyecto1SpecialTicket.Controllers
             return View(tipoEvento);
         }
 
-        // POST: TipoEventoes/Edit/5
+        // POST: TipoEventos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -115,7 +115,7 @@ namespace Proyecto1SpecialTicket.Controllers
             return View(tipoEvento);
         }
 
-        // GET: TipoEventoes/Delete/5
+        // GET: TipoEventos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.TipoEventos == null)
@@ -133,7 +133,7 @@ namespace Proyecto1SpecialTicket.Controllers
             return View(tipoEvento);
         }
 
-        // POST: TipoEventoes/Delete/5
+        // POST: TipoEventos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

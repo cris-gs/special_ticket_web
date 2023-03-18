@@ -9,94 +9,90 @@ using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
-    public class EventoesController : Controller
+    public class AsientosController : Controller
     {
         private readonly SpecialticketContext _context;
 
-        public EventoesController(SpecialticketContext context)
+        public AsientosController(SpecialticketContext context)
         {
             _context = context;
         }
 
-        // GET: Eventoes
+        // GET: Asientos
         public async Task<IActionResult> Index()
         {
-            var specialticketContext = _context.Eventos.Include(e => e.IdEscenarioNavigation).Include(e => e.IdTipoEventoNavigation);
+            var specialticketContext = _context.Asientos.Include(a => a.IdEscenarioNavigation);
             return View(await specialticketContext.ToListAsync());
         }
 
-        // GET: Eventoes/Details/5
+        // GET: Asientos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Eventos == null)
+            if (id == null || _context.Asientos == null)
             {
                 return NotFound();
             }
 
-            var evento = await _context.Eventos
-                .Include(e => e.IdEscenarioNavigation)
-                .Include(e => e.IdTipoEventoNavigation)
+            var asiento = await _context.Asientos
+                .Include(a => a.IdEscenarioNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (evento == null)
+            if (asiento == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(asiento);
         }
 
-        // GET: Eventoes/Create
+        // GET: Asientos/Create
         public IActionResult Create()
         {
             ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id");
-            ViewData["IdTipoEvento"] = new SelectList(_context.TipoEventos, "Id", "Id");
             return View();
         }
 
-        // POST: Eventoes/Create
+        // POST: Asientos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,Fecha,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdTipoEvento,IdEscenario")] Evento evento)
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,Cantidad,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] Asiento asiento)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(evento);
+                _context.Add(asiento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", evento.IdEscenario);
-            ViewData["IdTipoEvento"] = new SelectList(_context.TipoEventos, "Id", "Id", evento.IdTipoEvento);
-            return View(evento);
+            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
+            return View(asiento);
         }
 
-        // GET: Eventoes/Edit/5
+        // GET: Asientos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Eventos == null)
+            if (id == null || _context.Asientos == null)
             {
                 return NotFound();
             }
 
-            var evento = await _context.Eventos.FindAsync(id);
-            if (evento == null)
+            var asiento = await _context.Asientos.FindAsync(id);
+            if (asiento == null)
             {
                 return NotFound();
             }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", evento.IdEscenario);
-            ViewData["IdTipoEvento"] = new SelectList(_context.TipoEventos, "Id", "Id", evento.IdTipoEvento);
-            return View(evento);
+            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
+            return View(asiento);
         }
 
-        // POST: Eventoes/Edit/5
+        // POST: Asientos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Fecha,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdTipoEvento,IdEscenario")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Cantidad,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] Asiento asiento)
         {
-            if (id != evento.Id)
+            if (id != asiento.Id)
             {
                 return NotFound();
             }
@@ -105,12 +101,12 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 try
                 {
-                    _context.Update(evento);
+                    _context.Update(asiento);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventoExists(evento.Id))
+                    if (!AsientoExists(asiento.Id))
                     {
                         return NotFound();
                     }
@@ -121,53 +117,51 @@ namespace Proyecto1SpecialTicket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", evento.IdEscenario);
-            ViewData["IdTipoEvento"] = new SelectList(_context.TipoEventos, "Id", "Id", evento.IdTipoEvento);
-            return View(evento);
+            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
+            return View(asiento);
         }
 
-        // GET: Eventoes/Delete/5
+        // GET: Asientos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Eventos == null)
+            if (id == null || _context.Asientos == null)
             {
                 return NotFound();
             }
 
-            var evento = await _context.Eventos
-                .Include(e => e.IdEscenarioNavigation)
-                .Include(e => e.IdTipoEventoNavigation)
+            var asiento = await _context.Asientos
+                .Include(a => a.IdEscenarioNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (evento == null)
+            if (asiento == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(asiento);
         }
 
-        // POST: Eventoes/Delete/5
+        // POST: Asientos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Eventos == null)
+            if (_context.Asientos == null)
             {
-                return Problem("Entity set 'SpecialticketContext.Eventos'  is null.");
+                return Problem("Entity set 'SpecialticketContext.Asientos'  is null.");
             }
-            var evento = await _context.Eventos.FindAsync(id);
-            if (evento != null)
+            var asiento = await _context.Asientos.FindAsync(id);
+            if (asiento != null)
             {
-                _context.Eventos.Remove(evento);
+                _context.Asientos.Remove(asiento);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EventoExists(int id)
+        private bool AsientoExists(int id)
         {
-          return _context.Eventos.Any(e => e.Id == id);
+          return _context.Asientos.Any(e => e.Id == id);
         }
     }
 }
