@@ -10,6 +10,7 @@ public partial class Entrada
 
     public int Disponibles { get; set; }
 
+    [DisplayName("Tipo de asiento")]
     public string TipoAsiento { get; set; } = null!;
 
     public decimal Precio { get; set; }
@@ -34,5 +35,6 @@ public partial class Entrada
 
     public virtual ICollection<Compra> Compras { get; } = new List<Compra>();
 
+    [DisplayName("Id evento")]
     public virtual Evento? IdEventoNavigation { get; set; }
 }

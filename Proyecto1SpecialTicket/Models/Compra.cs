@@ -28,6 +28,7 @@ public partial class Compra
     [DisplayName("Actualizado por")]
     public int UpdatedBy { get; set; }
 
+    [DisplayName("Activo")]
     public bool Active { get; set; }
 
     [DisplayName("Id cliente")]
@@ -36,7 +37,9 @@ public partial class Compra
     [DisplayName("Id entrada")]
     public int IdEntrada { get; set; }
 
+    [DisplayName("Id cliente")]
     public virtual Usuario? IdClienteNavigation { get; set; }
 
+    [DisplayName("Id entrada")]
     public virtual Entrada? IdEntradaNavigation { get; set; }
 }

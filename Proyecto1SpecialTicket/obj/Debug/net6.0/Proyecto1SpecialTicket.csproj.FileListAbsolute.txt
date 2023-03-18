@@ -568,3 +568,4 @@ C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas
 C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\obj\Debug\net6.0\Proyecto1SpecialTicket.csproj.CopyComplete
 C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\obj\Debug\net6.0\Proyecto1SpecialTicket.genruntimeconfig.cache
 C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\obj\Debug\net6.0\ref\Proyecto1SpecialTicket.dll
+C:\Users\Personal\Desktop\TEC\Semestre 7\Introducción al Desarrollo de Páginas Web\Semana 5\special_ticket_web\Proyecto1SpecialTicket\bin\Debug\net6.0\libman.json

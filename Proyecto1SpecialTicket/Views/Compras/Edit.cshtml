@@ -4,74 +4,54 @@
     ViewData["Title"] = "Editar";
 }
 
-<h1>Editar</h1>
+<h1 class="text-center mt-3">Editar compra</h1>
 
-<h4>Compra</h4>
-<hr />
-<div class="row">
+<div class="row d-flex align-items-center justify-content-center">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Cantidad" class="control-label"></label>
                 <input asp-for="Cantidad" class="form-control" />
                 <span asp-validation-for="Cantidad" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaReserva" class="control-label"></label>
-                <input asp-for="FechaReserva" class="form-control" />
-                <span asp-validation-for="FechaReserva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="FechaPago" class="control-label"></label>
                 <input asp-for="FechaPago" class="form-control" />
                 <span asp-validation-for="FechaPago" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="CreatedBy" class="control-label"></label>
                 <input asp-for="CreatedBy" class="form-control" />
                 <span asp-validation-for="CreatedBy" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="UpdatedBy" class="control-label"></label>
                 <input asp-for="UpdatedBy" class="form-control" />
                 <span asp-validation-for="UpdatedBy" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Active" class="control-label"></label>
-                <input asp-for="Active" class="form-control" />
-                <span asp-validation-for="Active" class="text-danger"></span>
+            <div class="form-group form-check mb-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                </label>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="IdCliente" class="control-label"></label>
                 <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente"></select>
                 <span asp-validation-for="IdCliente" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="IdEntrada" class="control-label"></label>
                 <select asp-for="IdEntrada" class="form-control" asp-items="ViewBag.IdEntrada"></select>
                 <span asp-validation-for="IdEntrada" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-success" />
+            <div class="form-group d-flex align-items-center justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <button type="submit" class="btn btn-success"><i class="fa-sharp fa-solid fa-floppy-disk pe-1"></i>Guardar</button>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Volver</a>
 </div>
 
 @section Scripts {

@@ -34,5 +34,6 @@ public partial class Asiento
     [DisplayName("Id escenario")]
     public int IdEscenario { get; set; }
 
+    [DisplayName("Id escenario")]
     public virtual Escenario? IdEscenarioNavigation { get; set; }
 }
