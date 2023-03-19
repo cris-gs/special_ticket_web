@@ -24,6 +24,9 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end text-center pe-3">
+                            <li>
+                                <partial name="_LoginPartial" />
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white active" asp-area="" asp-controller="Asientos" asp-action="Index">Asientos</a>
                             </li>
@@ -52,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <partial name="_LoginPartial"/>
+            
         </nav>
     </header>
     <div class="container">

@@ -10,6 +10,7 @@ using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
+    //[Authorize]
     public class AsientosController : Controller
     {
         private readonly SpecialticketContext _context;
