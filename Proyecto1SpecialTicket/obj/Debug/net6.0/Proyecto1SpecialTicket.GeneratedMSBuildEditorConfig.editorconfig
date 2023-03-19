@@ -176,24 +176,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientoes/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXENyZWF0ZS5jc2h0bWw=
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientoes/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXERlbGV0ZS5jc2h0bWw=
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientoes/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXERldGFpbHMuY3NodG1s
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientoes/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXEVkaXQuY3NodG1s
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientoes/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b2VzXEluZGV4LmNzaHRtbA==
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Asientos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Compras/Create.cshtml]
@@ -256,24 +256,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNjZW5hcmlvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventoes/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcQ3JlYXRlLmNzaHRtbA==
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventoes/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcRGVsZXRlLmNzaHRtbA==
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventoes/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcRGV0YWlscy5jc2h0bWw=
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventoes/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcRWRpdC5jc2h0bWw=
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventoes/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvZXNcSW5kZXguY3NodG1s
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Eventos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Home/Index.cshtml]
@@ -316,24 +316,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0VzY2VuYXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventoes/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXENyZWF0ZS5jc2h0bWw=
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventoes/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXERlbGV0ZS5jc2h0bWw=
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventoes/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXERldGFpbHMuY3NodG1s
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventoes/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXEVkaXQuY3NodG1s
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventoes/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b2VzXEluZGV4LmNzaHRtbA==
+[D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/TipoEventos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0V2ZW50b3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/crist/TEC/Semestre 7/PAGINAS WEB/Proyecto1/Proyecto1SpecialTicket/Proyecto1SpecialTicket/Views/Usuarios/Create.cshtml]

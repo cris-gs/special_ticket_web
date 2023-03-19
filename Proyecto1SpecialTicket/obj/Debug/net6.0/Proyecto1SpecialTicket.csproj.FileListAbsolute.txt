@@ -576,3 +576,4 @@ D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1Sp
 D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
 D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+D:\crist\TEC\Semestre 7\PAGINAS WEB\Proyecto1\Proyecto1SpecialTicket\Proyecto1SpecialTicket\bin\Debug\net6.0\libman.json
