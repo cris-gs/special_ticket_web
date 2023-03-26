@@ -12,7 +12,7 @@ builder.Services.AddDbContext<SpecialticketContext>(options =>
     options.UseMySql(connection, ServerVersion.AutoDetect(connection));
 });
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<SpecialticketContext>();
 
 var app = builder.Build();
