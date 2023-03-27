@@ -24,6 +24,11 @@ namespace Proyecto1SpecialTicket.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
+                    b.Property<int>("Id_role")
+                       .ValueGeneratedOnAdd()
+                       .HasColumnType("int")
+                       .HasColumnName("id_role");
+
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
@@ -36,7 +41,8 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id_role")
+                    .HasName("PRIMARY");
 
                     b.ToTable("Roles");
                 });
@@ -46,6 +52,10 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<int>("Id_role")
+                       .HasColumnType("int")
+                       .HasColumnName("id_role");
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("longtext");
@@ -58,11 +68,18 @@ namespace Proyecto1SpecialTicket.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex(new[] { "Id_role" }, "id_role");
+
                     b.ToTable("RoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
+                    b.Property<int>("Id_user")
+                       .ValueGeneratedOnAdd()
+                       .HasColumnType("int")
+                       .HasColumnName("id_user");
+
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
@@ -108,7 +125,8 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id_user")
+                    .HasName("PRIMARY");
 
                     b.ToTable("Users");
                 });
@@ -128,13 +146,23 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Id_user")
+                       .HasColumnType("int")
+                       .HasColumnName("id_user");
+
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Id_user" }, "id_user");
 
                     b.ToTable("UserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
+                    b.Property<int>("Id_user")
+                       .HasColumnType("int")
+                       .HasColumnName("id_user");
+
                     b.Property<string>("LoginProvider")
                         .HasColumnType("longtext");
 
@@ -147,22 +175,40 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("longtext");
 
+                    b.HasIndex(new[] { "Id_user" }, "id_user");
+
                     b.ToTable("UserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
+
+                    b.Property<int>("Id_user")
+                       .HasColumnType("int")
+                       .HasColumnName("id_user");
+
+                    b.Property<int>("Id_role")
+                       .HasColumnType("int")
+                       .HasColumnName("id_role");
+
                     b.Property<string>("RoleId")
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .HasColumnType("longtext");
 
+                    b.HasIndex(new[] { "Id_user" }, "id_user");
+                    b.HasIndex(new[] { "Id_role" }, "id_role");
+
                     b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
+                    b.Property<int>("Id_user")
+                       .HasColumnType("int")
+                       .HasColumnName("id_user");
+
                     b.Property<string>("LoginProvider")
                         .HasColumnType("longtext");
 
@@ -174,6 +220,8 @@ namespace Proyecto1SpecialTicket.Migrations
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
+
+                    b.HasIndex(new[] { "Id_user" }, "id_user");
 
                     b.ToTable("UserTokens");
                 });
@@ -699,6 +747,73 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Navigation("IdEscenarioNavigation");
                 });
 
+            modelBuilder.Entity("Proyecto1SpecialTicket.Models.UserRoles", b =>
+            {
+                b.HasOne("Proyecto1SpecialTicket.Models.UserRoles", "Id_userNavigation")
+                    .WithMany("UserRoles")
+                    .HasForeignKey("Id_user")
+                    .IsRequired()
+                    .HasConstraintName("UserRoles_ibfk_1");
+
+                b.HasOne("Proyecto1SpecialTicket.Models.UserRoles", "Id_roleNavigation")
+                    .WithMany("UserRoles")
+                    .HasForeignKey("Id_role")
+                    .IsRequired()
+                    .HasConstraintName("UserRoles_ibfk_2");
+
+                b.Navigation("Id_userNavigation");
+
+                b.Navigation("Id_roleNavigation");
+            });
+
+            modelBuilder.Entity("Proyecto1SpecialTicket.Models.UserTokens", b =>
+            {
+                b.HasOne("Proyecto1SpecialTicket.Models.UserTokens", "Id_userNavigation")
+                    .WithMany("UserTokens")
+                    .HasForeignKey("Id_user")
+                    .IsRequired()
+                    .HasConstraintName("UserTokens_ibfk_1");
+
+                b.Navigation("Id_userNavigation");
+
+            });
+
+            modelBuilder.Entity("Proyecto1SpecialTicket.Models.UserLogins", b =>
+            {
+                b.HasOne("Proyecto1SpecialTicket.Models.UserLogins", "Id_userNavigation")
+                    .WithMany("UserLogins")
+                    .HasForeignKey("Id_user")
+                    .IsRequired()
+                    .HasConstraintName("UserLogins_ibfk_1");
+
+                b.Navigation("Id_userNavigation");
+
+            });
+
+            modelBuilder.Entity("Proyecto1SpecialTicket.Models.UserClaims", b =>
+            {
+                b.HasOne("Proyecto1SpecialTicket.Models.UserClaims", "Id_userNavigation")
+                    .WithMany("UserClaims")
+                    .HasForeignKey("Id_user")
+                    .IsRequired()
+                    .HasConstraintName("UserClaims_ibfk_1");
+
+                b.Navigation("Id_userNavigation");
+
+            });
+
+            modelBuilder.Entity("Proyecto1SpecialTicket.Models.RoleClaims", b =>
+            {
+                b.HasOne("Proyecto1SpecialTicket.Models.RoleClaims", "Id_roleNavigation")
+                    .WithMany("RoleClaims")
+                    .HasForeignKey("Id_role")
+                    .IsRequired()
+                    .HasConstraintName("RoleClaims_ibfk_1");
+
+                b.Navigation("Id_roleNavigation");
+
+            });
+
             modelBuilder.Entity("Proyecto1SpecialTicket.Models.Entrada", b =>
                 {
                     b.Navigation("Compras");
@@ -727,6 +842,24 @@ namespace Proyecto1SpecialTicket.Migrations
                 {
                     b.Navigation("Compras");
                 });
+
+            modelBuilder.Entity("Proyecto1SpecialTicket.Models.Users", b =>
+            {
+                b.Navigation("UserRoles");
+
+                b.Navigation("UserTokens");
+
+                b.Navigation("UserLogins");
+
+                b.Navigation("UserClaims");
+            });
+
+            modelBuilder.Entity("Proyecto1SpecialTicket.Models.Roles", b =>
+            {
+                b.Navigation("UserRoles");
+
+                b.Navigation("RoleClaims");
+            });
 #pragma warning restore 612, 618
         }
     }

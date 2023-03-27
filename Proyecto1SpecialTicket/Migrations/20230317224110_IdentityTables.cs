@@ -39,29 +39,11 @@ namespace Proyecto1SpecialTicket.Migrations
                 .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
 
             migrationBuilder.CreateTable(
-                name: "RoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClaimType = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClaimValue = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
+                    Id_role = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id = table.Column<string>(type: "varchar(255)", nullable: false, collation: "utf8mb4_0900_ai_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Name = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
@@ -73,7 +55,71 @@ namespace Proyecto1SpecialTicket.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id_role);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4")
+                .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
+
+            migrationBuilder.CreateTable(
+               name: "Users",
+               columns: table => new
+               {
+                   Id_user = table.Column<int>(type: "int", nullable: false)
+                       .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                   Id = table.Column<string>(type: "varchar(255)", nullable: false, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   UserName = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   NormalizedUserName = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   Email = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   NormalizedEmail = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                   PasswordHash = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   SecurityStamp = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   PhoneNumber = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                       .Annotation("MySql:CharSet", "utf8mb4"),
+                   PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                   TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                   LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
+                   LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                   AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+               },
+               constraints: table =>
+               {
+                   table.PrimaryKey("PK_Users", x => x.Id_user);
+               })
+               .Annotation("MySql:CharSet", "utf8mb4")
+               .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
+
+            migrationBuilder.CreateTable(
+                name: "RoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_role = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClaimType = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClaimValue = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "RoleClaims_ibfk_1",
+                        column: x => x.Id_role,
+                        principalTable: "Roles",
+                        principalColumn: "id_role");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
@@ -105,6 +151,7 @@ namespace Proyecto1SpecialTicket.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_user = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ClaimType = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
@@ -115,6 +162,11 @@ namespace Proyecto1SpecialTicket.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "UserClaims_ibfk_1",
+                        column: x => x.Id_user,
+                        principalTable: "Users",
+                        principalColumn: "id_user");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
@@ -123,6 +175,7 @@ namespace Proyecto1SpecialTicket.Migrations
                 name: "UserLogins",
                 columns: table => new
                 {
+                    Id_user = table.Column<int>(type: "int", nullable: false),
                     LoginProvider = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ProviderKey = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
@@ -134,6 +187,11 @@ namespace Proyecto1SpecialTicket.Migrations
                 },
                 constraints: table =>
                 {
+                    table.ForeignKey(
+                        name: "UserLogins_ibfk_1",
+                        column: x => x.Id_user,
+                        principalTable: "Users",
+                        principalColumn: "id_user");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
@@ -142,6 +200,8 @@ namespace Proyecto1SpecialTicket.Migrations
                 name: "UserRoles",
                 columns: table => new
                 {
+                    Id_user = table.Column<int>(type: "int", nullable: false),
+                    Id_role = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     RoleId = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
@@ -149,42 +209,16 @@ namespace Proyecto1SpecialTicket.Migrations
                 },
                 constraints: table =>
                 {
-                })
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "varchar(255)", nullable: false, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserName = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NormalizedUserName = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NormalizedEmail = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    SecurityStamp = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "UserRoles_ibfk_1",
+                        column: x => x.Id_user,
+                        principalTable: "Users",
+                        principalColumn: "id_user");
+                    table.ForeignKey(
+                        name: "UserRoles_ibfk_2",
+                        column: x => x.Id_role,
+                        principalTable: "Roles",
+                        principalColumn: "id_role");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
@@ -193,6 +227,7 @@ namespace Proyecto1SpecialTicket.Migrations
                 name: "UserTokens",
                 columns: table => new
                 {
+                    Id_user = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LoginProvider = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
@@ -204,6 +239,11 @@ namespace Proyecto1SpecialTicket.Migrations
                 },
                 constraints: table =>
                 {
+                    table.ForeignKey(
+                        name: "UserTokens_ibfk_1",
+                        column: x => x.Id_user,
+                        principalTable: "Users",
+                        principalColumn: "id_user");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
@@ -375,8 +415,8 @@ namespace Proyecto1SpecialTicket.Migrations
                     table.ForeignKey(
                         name: "compra_ibfk_1",
                         column: x => x.id_cliente,
-                        principalTable: "usuario",
-                        principalColumn: "id");
+                        principalTable: "users",
+                        principalColumn: "id_user");
                     table.ForeignKey(
                         name: "compra_ibfk_2",
                         column: x => x.id_entrada,
@@ -420,6 +460,31 @@ namespace Proyecto1SpecialTicket.Migrations
                 name: "id_escenario2",
                 table: "tipo_escenario",
                 column: "id_escenario");
+
+            migrationBuilder.CreateIndex(
+                name: "id_user",
+                table: "userroles",
+                column: "id_user");
+
+            migrationBuilder.CreateIndex(
+                name: "id_user",
+                table: "usertokens",
+                column: "id_user");
+
+            migrationBuilder.CreateIndex(
+                name: "id_user",
+                table: "userlogins",
+                column: "id_user");
+
+            migrationBuilder.CreateIndex(
+               name: "id_user",
+               table: "userclaims",
+               column: "id_user");
+
+            migrationBuilder.CreateIndex(
+               name: "id_role",
+               table: "roleclaims",
+               column: "id_role");
         }
 
         /// <inheritdoc />
