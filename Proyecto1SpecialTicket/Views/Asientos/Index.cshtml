@@ -10,7 +10,7 @@
     <a asp-action="Create" class="btn btn-success"><i class="fa-solid fa-plus pe-1"></i>Crear nuevo</a>
 </p>
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" id="myTable">
     <thead>
         <tr>
             <th>
@@ -19,7 +19,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Cantidad)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
             </th>
             <th>
@@ -30,7 +30,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UpdatedBy)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Active)
             </th>
@@ -49,7 +49,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Cantidad)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)
             </td>
             <td>
@@ -60,7 +60,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UpdatedBy)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
@@ -77,3 +77,17 @@
     </tbody>
 </table>
 </div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
+
+}
