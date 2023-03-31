@@ -36,5 +36,5 @@ public partial class Usuario
     [DisplayName("Activo")]
     public bool Active { get; set; }
 
-    public virtual ICollection<Compra> Compras { get; } = new List<Compra>();
+    //public virtual ICollection<Compra> Compras { get; } = new List<Compra>();
 }

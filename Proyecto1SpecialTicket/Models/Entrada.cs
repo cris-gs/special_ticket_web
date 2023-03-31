@@ -19,13 +19,13 @@ public partial class Entrada
     public DateTime CreatedAt { get; set; }
 
     [DisplayName("Creado por")]
-    public int CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
     [DisplayName("Fecha de actualización")]
     public DateTime UpdatedAt { get; set; }
 
     [DisplayName("Actualizado por")]
-    public int UpdatedBy { get; set; }
+    public string UpdatedBy { get; set; } = null!;
 
     [DisplayName("Activo")]
     public bool Active { get; set; }

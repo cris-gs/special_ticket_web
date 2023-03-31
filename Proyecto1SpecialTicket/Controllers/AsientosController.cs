@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,21 +13,48 @@ using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AsientosController : Controller
     {
         private readonly SpecialticketContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AsientosController(SpecialticketContext context)
+        public AsientosController(SpecialticketContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Asientos
         public async Task<IActionResult> Index()
         {
+
+            var userId = _userManager.GetUserId(User);
+
+            var query = from ur in _context.UserRoles
+                        join r in _context.Roles
+                        on ur.RoleId equals r.Id
+                        select new
+                        {
+                            Id = ur.UserId,
+                            NameRole = r.Name,
+                        };
+            bool tienePermiso = false;
+            foreach (var resultado in query)
+            {
+                if(userId == resultado.Id && resultado.NameRole == "Administrador")
+                {
+                    tienePermiso = true;
+                }
+            }
+            if (!tienePermiso)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var specialticketContext = _context.Asientos.Include(a => a.IdEscenarioNavigation);
             return View(await specialticketContext.ToListAsync());
+            
         }
 
         // GET: Asientos/Details/5

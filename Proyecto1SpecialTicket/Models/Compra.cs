@@ -20,25 +20,25 @@ public partial class Compra
     public DateTime CreatedAt { get; set; }
 
     [DisplayName("Creado por")]
-    public int CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
     [DisplayName("Fecha de actualización")]
     public DateTime UpdatedAt { get; set; }
 
     [DisplayName("Actualizado por")]
-    public int UpdatedBy { get; set; }
+    public string UpdatedBy { get; set; } = null!;
 
     [DisplayName("Activo")]
     public bool Active { get; set; }
 
     [DisplayName("Id cliente")]
-    public int IdCliente { get; set; }
+    public string IdCliente { get; set; } = null!;
 
     [DisplayName("Id entrada")]
     public int IdEntrada { get; set; }
 
     [DisplayName("Id cliente")]
-    public virtual Usuario? IdClienteNavigation { get; set; }
+    public virtual Users? IdClienteNavigation { get; set; }
 
     [DisplayName("Id entrada")]
     public virtual Entrada? IdEntradaNavigation { get; set; }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,19 +11,44 @@ using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ComprasController : Controller
     {
         private readonly SpecialticketContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ComprasController(SpecialticketContext context)
+        public ComprasController(SpecialticketContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Compras
         public async Task<IActionResult> Index()
         {
+            var userId = _userManager.GetUserId(User);
+
+            var query = from ur in _context.UserRoles
+                        join r in _context.Roles
+                        on ur.RoleId equals r.Id
+                        select new
+                        {
+                            Id = ur.UserId,
+                            NameRole = r.Name,
+                        };
+            bool tienePermiso = false;
+            foreach (var resultado in query)
+            {
+                if (userId == resultado.Id && resultado.NameRole == "Administrador")
+                {
+                    tienePermiso = true;
+                }
+            }
+            if (!tienePermiso)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var specialticketContext = _context.Compras.Include(c => c.IdClienteNavigation).Include(c => c.IdEntradaNavigation);
             return View(await specialticketContext.ToListAsync());
         }
@@ -49,7 +76,7 @@ namespace Proyecto1SpecialTicket.Controllers
         // GET: Compras/Create
         public IActionResult Create()
         {
-            ViewData["IdCliente"] = new SelectList(_context.Usuarios, "Id", "Id");
+            ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id");
             return View();
         }
@@ -67,7 +94,7 @@ namespace Proyecto1SpecialTicket.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCliente"] = new SelectList(_context.Usuarios, "Id", "Id", compra.IdCliente);
+            ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id", compra.IdCliente);
             ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntrada);
             return View(compra);
         }
@@ -85,7 +112,7 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCliente"] = new SelectList(_context.Usuarios, "Id", "Id", compra.IdCliente);
+            ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id", compra.IdCliente);
             ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntrada);
             return View(compra);
         }
@@ -122,7 +149,7 @@ namespace Proyecto1SpecialTicket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCliente"] = new SelectList(_context.Usuarios, "Id", "Id", compra.IdCliente);
+            ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id", compra.IdCliente);
             ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntrada);
             return View(compra);
         }

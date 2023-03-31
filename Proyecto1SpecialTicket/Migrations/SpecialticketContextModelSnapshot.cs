@@ -24,11 +24,6 @@ namespace Proyecto1SpecialTicket.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<int>("Id_role")
-                       .ValueGeneratedOnAdd()
-                       .HasColumnType("int")
-                       .HasColumnName("id_role");
-
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
@@ -41,7 +36,7 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id_role")
+                    b.HasKey("Id")
                     .HasName("PRIMARY");
 
                     b.ToTable("Roles");
@@ -53,10 +48,6 @@ namespace Proyecto1SpecialTicket.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_role")
-                       .HasColumnType("int")
-                       .HasColumnName("id_role");
-
                     b.Property<string>("ClaimType")
                         .HasColumnType("longtext");
 
@@ -64,21 +55,18 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                    .HasName("PRIMARY");
 
-                    b.HasIndex(new[] { "Id_role" }, "id_role");
+                    b.HasIndex(new[] { "RoleId" }, "RoleId");
 
                     b.ToTable("RoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
-                    b.Property<int>("Id_user")
-                       .ValueGeneratedOnAdd()
-                       .HasColumnType("int")
-                       .HasColumnName("id_user");
 
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -125,7 +113,10 @@ namespace Proyecto1SpecialTicket.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id_user")
+                    b.Property<string>("Discriminator")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id")
                     .HasName("PRIMARY");
 
                     b.ToTable("Users");
@@ -144,24 +135,18 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<int>("Id_user")
-                       .HasColumnType("int")
-                       .HasColumnName("id_user");
+                    b.HasKey("Id")
+                    .HasName("PRIMARY");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Id_user" }, "id_user");
+                    b.HasIndex(new[] { "UserId" }, "UserId");
 
                     b.ToTable("UserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<int>("Id_user")
-                       .HasColumnType("int")
-                       .HasColumnName("id_user");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("longtext");
@@ -173,41 +158,29 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
-                    b.HasIndex(new[] { "Id_user" }, "id_user");
+                    b.HasIndex(new[] { "UserId" }, "UserId");
 
                     b.ToTable("UserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-
-                    b.Property<int>("Id_user")
-                       .HasColumnType("int")
-                       .HasColumnName("id_user");
-
-                    b.Property<int>("Id_role")
-                       .HasColumnType("int")
-                       .HasColumnName("id_role");
-
                     b.Property<string>("RoleId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
-                    b.HasIndex(new[] { "Id_user" }, "id_user");
-                    b.HasIndex(new[] { "Id_role" }, "id_role");
+                    b.HasIndex(new[] { "UserId" }, "UserId");
+                    b.HasIndex(new[] { "RoleId" }, "RoleId");
 
                     b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.Property<int>("Id_user")
-                       .HasColumnType("int")
-                       .HasColumnName("id_user");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("longtext");
@@ -216,12 +189,12 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
 
-                    b.HasIndex(new[] { "Id_user" }, "id_user");
+                    b.HasIndex(new[] { "UserId" }, "UserId");
 
                     b.ToTable("UserTokens");
                 });
@@ -246,8 +219,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Created_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Created_By");
 
                     b.Property<string>("Descripcion")
@@ -269,8 +242,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Updated_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Updated_By");
 
                     b.HasKey("Id")
@@ -304,8 +277,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Created_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Created_By");
 
                     b.Property<DateTime>("FechaPago")
@@ -318,8 +291,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("fecha_reserva")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("IdCliente")
-                        .HasColumnType("int")
+                    b.Property<string>("IdCliente")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("id_cliente");
 
                     b.Property<int>("IdEntrada")
@@ -332,8 +305,9 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Updated_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext")
+                        .HasColumnName("Updated_By");
 
                     b.HasKey("Id")
                         .HasName("PRIMARY");
@@ -364,8 +338,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Created_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Created_By");
 
                     b.Property<int>("Disponibles")
@@ -395,8 +369,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Updated_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Updated_By");
 
                     b.HasKey("Id")
@@ -423,8 +397,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Created_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Created_By");
 
                     b.Property<string>("Localizacion")
@@ -451,8 +425,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Updated_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Updated_By");
 
                     b.HasKey("Id")
@@ -477,8 +451,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Created_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Created_By");
 
                     b.Property<string>("Descripcion")
@@ -508,8 +482,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Updated_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Updated_By");
 
                     b.HasKey("Id")
@@ -539,8 +513,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Created_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Created_By");
 
                     b.Property<string>("Descripcion")
@@ -562,8 +536,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Updated_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int")
+                    b.Property<String>("UpdatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Updated_By");
 
                     b.HasKey("Id")
@@ -591,8 +565,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Created_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Created_By");
 
                     b.Property<string>("Descripcion")
@@ -610,8 +584,8 @@ namespace Proyecto1SpecialTicket.Migrations
                         .HasColumnName("Updated_At")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int")
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext")
                         .HasColumnName("Updated_By");
 
                     b.HasKey("Id")
@@ -751,30 +725,30 @@ namespace Proyecto1SpecialTicket.Migrations
             {
                 b.HasOne("Proyecto1SpecialTicket.Models.UserRoles", "Id_userNavigation")
                     .WithMany("UserRoles")
-                    .HasForeignKey("Id_user")
+                    .HasForeignKey("UserId")
                     .IsRequired()
                     .HasConstraintName("UserRoles_ibfk_1");
 
                 b.HasOne("Proyecto1SpecialTicket.Models.UserRoles", "Id_roleNavigation")
                     .WithMany("UserRoles")
-                    .HasForeignKey("Id_role")
+                    .HasForeignKey("RoleId")
                     .IsRequired()
                     .HasConstraintName("UserRoles_ibfk_2");
 
-                b.Navigation("Id_userNavigation");
+                b.Navigation("UserIdNavigation");
 
-                b.Navigation("Id_roleNavigation");
+                b.Navigation("RoleIdNavigation");
             });
 
             modelBuilder.Entity("Proyecto1SpecialTicket.Models.UserTokens", b =>
             {
                 b.HasOne("Proyecto1SpecialTicket.Models.UserTokens", "Id_userNavigation")
                     .WithMany("UserTokens")
-                    .HasForeignKey("Id_user")
+                    .HasForeignKey("UserId")
                     .IsRequired()
                     .HasConstraintName("UserTokens_ibfk_1");
 
-                b.Navigation("Id_userNavigation");
+                b.Navigation("UserIdNavigation");
 
             });
 
@@ -782,11 +756,11 @@ namespace Proyecto1SpecialTicket.Migrations
             {
                 b.HasOne("Proyecto1SpecialTicket.Models.UserLogins", "Id_userNavigation")
                     .WithMany("UserLogins")
-                    .HasForeignKey("Id_user")
+                    .HasForeignKey("UserId")
                     .IsRequired()
                     .HasConstraintName("UserLogins_ibfk_1");
 
-                b.Navigation("Id_userNavigation");
+                b.Navigation("UserIdNavigation");
 
             });
 
@@ -794,11 +768,11 @@ namespace Proyecto1SpecialTicket.Migrations
             {
                 b.HasOne("Proyecto1SpecialTicket.Models.UserClaims", "Id_userNavigation")
                     .WithMany("UserClaims")
-                    .HasForeignKey("Id_user")
+                    .HasForeignKey("UserId")
                     .IsRequired()
                     .HasConstraintName("UserClaims_ibfk_1");
 
-                b.Navigation("Id_userNavigation");
+                b.Navigation("UserIdNavigation");
 
             });
 
@@ -806,11 +780,11 @@ namespace Proyecto1SpecialTicket.Migrations
             {
                 b.HasOne("Proyecto1SpecialTicket.Models.RoleClaims", "Id_roleNavigation")
                     .WithMany("RoleClaims")
-                    .HasForeignKey("Id_role")
+                    .HasForeignKey("RoleId")
                     .IsRequired()
                     .HasConstraintName("RoleClaims_ibfk_1");
 
-                b.Navigation("Id_roleNavigation");
+                b.Navigation("RoleIdNavigation");
 
             });
 
@@ -852,6 +826,8 @@ namespace Proyecto1SpecialTicket.Migrations
                 b.Navigation("UserLogins");
 
                 b.Navigation("UserClaims");
+
+                b.Navigation("Compras");
             });
 
             modelBuilder.Entity("Proyecto1SpecialTicket.Models.Roles", b =>
