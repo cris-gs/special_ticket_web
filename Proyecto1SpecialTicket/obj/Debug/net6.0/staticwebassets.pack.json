@@ -1,6 +1,14 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\crist\\.nuget\\packages\\datatables.net\\1.13.4\\contentFiles\\any\\any\\wwwroot\\js\\jquery.dataTables.js",
+      "PackagePath": "staticwebassets\\js\\jquery.dataTables.js"
+    },
+    {
+      "Id": "C:\\Users\\crist\\.nuget\\packages\\datatables.net\\1.13.4\\contentFiles\\any\\any\\wwwroot\\js\\jquery.dataTables.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.dataTables.min.js"
+    },
+    {
       "Id": "D:\\crist\\TEC\\Semestre 7\\PAGINAS WEB\\Proyecto1\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Proyecto1SpecialTicket.bundle.scp.css",
       "PackagePath": "staticwebassets\\Proyecto1SpecialTicket.bundle.scp.css"
     },

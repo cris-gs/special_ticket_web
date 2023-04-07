@@ -85,6 +85,9 @@ namespace Proyecto1SpecialTicket.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = _userManager.GetUserId(User);
+                tipoEvento.CreatedBy = userId;
+                tipoEvento.UpdatedBy = userId;
                 _context.Add(tipoEvento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -124,6 +127,15 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 try
                 {
+                    var userId = _userManager.GetUserId(User);
+                    var fechaCreacion = _context.TipoEventos
+                        .Where(te => te.Id == tipoEvento.Id)
+                        .Select(te => te.CreatedAt)
+                        .FirstOrDefault();
+                    DateTime currentDateTime = DateTime.Now;
+                    tipoEvento.CreatedAt = fechaCreacion;
+                    tipoEvento.UpdatedBy = userId;
+                    tipoEvento.UpdatedAt = currentDateTime;
                     _context.Update(tipoEvento);
                     await _context.SaveChangesAsync();
                 }

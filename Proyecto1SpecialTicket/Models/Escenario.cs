@@ -32,6 +32,5 @@ public partial class Escenario
 
     public virtual ICollection<Evento> Eventos { get; } = new List<Evento>();
 
-    [DisplayName("Tipo escenario")]
     public virtual ICollection<TipoEscenario> TipoEscenarios { get; } = new List<TipoEscenario>();
 }

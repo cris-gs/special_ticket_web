@@ -49,7 +49,8 @@ namespace Proyecto1SpecialTicket.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var specialticketContext = _context.Compras.Include(c => c.IdClienteNavigation).Include(c => c.IdEntradaNavigation);
+            //var specialticketContext = _context.Compras.Include(c => c.IdClienteNavigation).Include(c => c.IdEntradaNavigation);
+            var specialticketContext = _context.Compras;
             return View(await specialticketContext.ToListAsync());
         }
 
@@ -61,10 +62,11 @@ namespace Proyecto1SpecialTicket.Controllers
                 return NotFound();
             }
 
-            var compra = await _context.Compras
-                .Include(c => c.IdClienteNavigation)
-                .Include(c => c.IdEntradaNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //var compra = await _context.Compras
+            //    .Include(c => c.IdClienteNavigation)
+            //    .Include(c => c.IdEntradaNavigation)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            var compra = await _context.Compras.FirstOrDefaultAsync(c => c.Id == id);
             if (compra == null)
             {
                 return NotFound();
@@ -90,6 +92,10 @@ namespace Proyecto1SpecialTicket.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = _userManager.GetUserId(User);
+                compra.CreatedBy = userId;
+                compra.UpdatedBy = userId;
+                compra.IdCliente = userId;
                 _context.Add(compra);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -133,6 +139,15 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 try
                 {
+                    var userId = _userManager.GetUserId(User);
+                    var fechaCreacion = _context.Compras
+                        .Where(te => te.Id == compra.Id)
+                        .Select(te => te.CreatedAt)
+                        .FirstOrDefault();
+                    DateTime currentDateTime = DateTime.Now;
+                    compra.CreatedAt = fechaCreacion;
+                    compra.UpdatedBy = userId;
+                    compra.UpdatedAt = currentDateTime;
                     _context.Update(compra);
                     await _context.SaveChangesAsync();
                 }

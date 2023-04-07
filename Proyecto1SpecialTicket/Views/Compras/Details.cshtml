@@ -56,7 +56,19 @@
         <dd class="col-sm-6 text-end">
             @Html.DisplayFor(model => model.Active)
         </dd>
-        <dt class = "col-sm-6">
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.IdCliente)
+        </dt>
+        <dd class="col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdCliente)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.IdEntrada)
+        </dt>
+        <dd class="col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdEntrada)
+        </dd>
+        @*<dt class = "col-sm-6">
             @Html.DisplayNameFor(model => model.IdClienteNavigation)
         </dt>
         <dd class="col-sm-6 text-end">
@@ -67,7 +79,8 @@
         </dt>
         <dd class="col-sm-6 text-end">
             @Html.DisplayFor(model => model.IdEntradaNavigation.Id)
-        </dd>
+        </dd>*@
+
     </dl>
 </div>
 <div class="d-flex align-items-center justify-content-between mt-4" style="margin: 0 auto; max-width: 500px;">

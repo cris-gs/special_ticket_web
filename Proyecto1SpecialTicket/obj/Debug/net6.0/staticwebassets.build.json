@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wwN1nXg4ol3mMNKSmEXtfPckib9rC1Rupu4oSqDs9Cs=",
+  "Hash": "dXmUFuVz2RBuCoMldZR+OhaMT3NrXTEFTS1p+yT2OZQ=",
   "Source": "Proyecto1SpecialTicket",
   "BasePath": "_content/Proyecto1SpecialTicket",
   "Mode": "Default",
@@ -16,6 +16,40 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\crist\\.nuget\\packages\\datatables.net\\1.13.4\\contentFiles\\any\\any\\wwwroot\\js\\jquery.dataTables.js",
+      "SourceId": "Proyecto1SpecialTicket",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\crist\\TEC\\Semestre 7\\PAGINAS WEB\\Proyecto1\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket\\wwwroot\\",
+      "BasePath": "_content/Proyecto1SpecialTicket",
+      "RelativePath": "js/jquery.dataTables.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\crist\\.nuget\\packages\\datatables.net\\1.13.4\\contentFiles\\any\\any\\wwwroot\\js\\jquery.dataTables.js"
+    },
+    {
+      "Identity": "C:\\Users\\crist\\.nuget\\packages\\datatables.net\\1.13.4\\contentFiles\\any\\any\\wwwroot\\js\\jquery.dataTables.min.js",
+      "SourceId": "Proyecto1SpecialTicket",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\crist\\TEC\\Semestre 7\\PAGINAS WEB\\Proyecto1\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket\\wwwroot\\",
+      "BasePath": "_content/Proyecto1SpecialTicket",
+      "RelativePath": "js/jquery.dataTables.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\crist\\.nuget\\packages\\datatables.net\\1.13.4\\contentFiles\\any\\any\\wwwroot\\js\\jquery.dataTables.min.js"
+    },
     {
       "Identity": "C:\\Users\\crist\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\6.0.15\\staticwebassets\\V5\\css\\site.css",
       "SourceId": "Microsoft.AspNetCore.Identity.UI",

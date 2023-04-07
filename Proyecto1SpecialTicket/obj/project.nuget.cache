@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "GcVogP4xfPM8OSUb5ECdVB+2yK45Tk68BpwOTVwUmQYQSEtoxKmBpd+Onria1RqgRpDRKQEt695cocW8eXYlgQ==",
+  "dgSpecHash": "3bQez4fq6BGyRR19veUnfoKxPt2vku1/7ij7sstP2hL8wR7P0sU2ZxBNZR8XHjB+IrD13CyWiVHtDEuMUa3Dmw==",
   "success": true,
   "projectFilePath": "D:\\crist\\TEC\\Semestre 7\\PAGINAS WEB\\Proyecto1\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket\\Proyecto1SpecialTicket.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\crist\\.nuget\\packages\\datatables.net\\1.13.4\\datatables.net.1.13.4.nupkg.sha512",
     "C:\\Users\\crist\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\crist\\.nuget\\packages\\jquery\\1.7.0\\jquery.1.7.0.nupkg.sha512",
     "C:\\Users\\crist\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\crist\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\crist\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
