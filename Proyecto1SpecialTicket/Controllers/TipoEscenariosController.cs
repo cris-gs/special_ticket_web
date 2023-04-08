@@ -91,6 +91,7 @@ namespace Proyecto1SpecialTicket.Controllers
                 var userId = _userManager.GetUserId(User);
                 tipoEscenario.CreatedBy = userId;
                 tipoEscenario.UpdatedBy = userId;
+                _context.Add(tipoEscenario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

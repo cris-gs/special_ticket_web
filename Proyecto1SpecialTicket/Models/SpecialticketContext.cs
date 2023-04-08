@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Proyecto1SpecialTicket.Models.Entities;
 
 namespace Proyecto1SpecialTicket.Models;
 
@@ -316,4 +317,8 @@ public partial class SpecialticketContext : IdentityDbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleEvento>? DetalleEvento { get; set; }
+
+    public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleAsiento>? DetalleAsiento { get; set; }
 }

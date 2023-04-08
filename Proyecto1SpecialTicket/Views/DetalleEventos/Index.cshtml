@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Proyecto1SpecialTicket.Models.Entities.DetalleEvento>
+
+@{
+    ViewData["Title"] = "Eventos disponibles";
+}
+
+<h1 class="mt-5">Eventos disponibles</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoEvento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoEscenario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Escenario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Localizacion)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoEscenario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Escenario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Localizacion)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info pe-2"><i class="fa-solid fa-eye pe-1 text-white"></i></a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
+
+}

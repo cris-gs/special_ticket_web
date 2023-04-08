@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 using Proyecto1SpecialTicket.Models;
+using Proyecto1SpecialTicket.Models.Entities;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
@@ -72,11 +74,35 @@ namespace Proyecto1SpecialTicket.Controllers
             return View(entrada);
         }
 
-        // GET: Entradas/Create
-        public IActionResult Create()
+        // GET: Eventos
+        public IActionResult Events()
         {
-            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id");
-            return View();
+            return RedirectToAction("Index", "DetalleEventos");
+        }
+
+        // GET: Entradas/Create
+        public IActionResult Create(int? id, int? idE)
+        {
+            Console.WriteLine(idE);
+            var entrada = _context.Eventos
+                              .Join(_context.TipoEventos, e => e.IdTipoEvento, te => te.Id, (e, te) => new { Evento = e, TipoEvento = te })
+                              .Join(_context.Escenarios, ev => ev.Evento.IdEscenario, esc => esc.Id, (ev, esc) => new { ev, Escenario = esc })
+                              .Join(_context.Asientos, es => es.Escenario.Id, a => a.IdEscenario, (es, a) => new { es, Asiento = a })
+                              .Where(x => x.es.ev.Evento.Active && x.Asiento.Id == id && x.es.ev.Evento.Id == idE)
+                              .Select(x => new Entrada
+                              {
+                                  IdEvento = x.es.ev.Evento.Id,
+                                  TipoAsiento = x.Asiento.Descripcion,
+                                  Disponibles = x.Asiento.Cantidad
+                              })
+                              .FirstOrDefault();
+
+            if (entrada == null)
+            {
+                return NotFound();
+            }
+
+            return View(entrada);
         }
 
         // POST: Entradas/Create
@@ -84,7 +110,7 @@ namespace Proyecto1SpecialTicket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Disponibles,TipoAsiento,Precio,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEvento")] Entrada entrada)
+        public async Task<IActionResult> Create([Bind("Disponibles,TipoAsiento,Precio,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEvento")] Entrada entrada)
         {
             if (ModelState.IsValid)
             {
@@ -92,10 +118,23 @@ namespace Proyecto1SpecialTicket.Controllers
                 entrada.CreatedBy = userId;
                 entrada.UpdatedBy = userId;
                 _context.Add(entrada);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException ex)
+                {
+                    if (ex.InnerException is MySqlException mySqlEx && mySqlEx.Number == 1062) // 1062 es el número de error de MySQL para entradas duplicadas
+                    {
+                        ModelState.AddModelError(string.Empty, "Ya existe una entrada con este tipo de asiento para este evento.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Ocurrió un error al guardar la entrada.");
+                    }
+                }
             }
-            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEvento);
             return View(entrada);
         }
 
@@ -112,7 +151,7 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEvento);
+            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEventoNavigation);
             return View(entrada);
         }
 
@@ -157,7 +196,7 @@ namespace Proyecto1SpecialTicket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEvento);
+            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEventoNavigation);
             return View(entrada);
         }
 

@@ -7,7 +7,7 @@
 <h1 class="mt-5">Entradas</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success"><i class="fa-solid fa-plus pe-1"></i>Crear nueva</a>
+    <a asp-action="Events" class="btn btn-success"><i class="fa-solid fa-plus pe-1"></i>Crear nueva</a>
 </p>
 <div class="table-responsive">
     <table class="table table-striped" id="myTable">
@@ -38,7 +38,7 @@
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IdEventoNavigation)
+                    @Html.DisplayNameFor(model => model.IdEvento)
                 </th>
                 <th></th>
             </tr>
@@ -72,7 +72,7 @@
                         @Html.DisplayFor(modelItem => item.Active)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdEventoNavigation.Id)
+                        @Html.DisplayFor(modelItem => item.IdEvento)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary pe-2"><i class="fa-solid fa-pen pe-1"></i></a>
