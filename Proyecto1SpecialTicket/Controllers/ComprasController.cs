@@ -76,11 +76,11 @@ namespace Proyecto1SpecialTicket.Controllers
         }
 
         // GET: Compras/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id");
-            return View();
+            var compra = new Compra { IdEntrada = id };
+            return View(compra);
         }
 
         // POST: Compras/Create
@@ -88,20 +88,54 @@ namespace Proyecto1SpecialTicket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Cantidad,FechaReserva,FechaPago,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdCliente,IdEntrada")] Compra compra)
+        public async Task<IActionResult> Create([Bind("Cantidad,FechaReserva,FechaPago,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdCliente,IdEntrada")] Compra compra)
         {
-            if (ModelState.IsValid)
+            var error = false;
+            var userId = _userManager.GetUserId(User);
+
+            // Validación 1: Cantidad de entradas a comprar
+            var entrada = await _context.Entradas.FindAsync(compra.IdEntrada);
+            if (entrada == null)
             {
-                var userId = _userManager.GetUserId(User);
+                ModelState.AddModelError("IdEntrada", "La entrada no existe.");
+                error = true;
+            }
+            else if (compra.Cantidad > entrada.Disponibles)
+            {
+                ModelState.AddModelError("Cantidad", "No hay suficientes entradas disponibles para realizar la compra.");
+                error = true;
+            }
+
+            // Validación 2: Fecha de pago
+            var evento = await _context.Eventos.FindAsync(entrada?.IdEvento);
+            if (compra.FechaPago < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("FechaPago", "La fecha de pago debe ser una fecha actual o futura.");
+                error = true;
+            }
+            else if (evento != null && compra.FechaPago > evento.Fecha)
+            {
+                ModelState.AddModelError("FechaPago", "La fecha de pago no puede ser después del evento.");
+                error = true;
+            }
+
+            if (error == false)
+            {
                 compra.CreatedBy = userId;
                 compra.UpdatedBy = userId;
                 compra.IdCliente = userId;
                 _context.Add(compra);
                 await _context.SaveChangesAsync();
+
+                if (entrada != null)
+                {
+                    entrada.Disponibles -= compra.Cantidad;
+                    _context.SaveChanges();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id", compra.IdCliente);
-            ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntrada);
+
             return View(compra);
         }
 

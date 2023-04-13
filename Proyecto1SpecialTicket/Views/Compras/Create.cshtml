@@ -1,7 +1,7 @@
 ﻿@model Proyecto1SpecialTicket.Models.Compra
 
 @{
-    ViewData["Title"] = "Crear";
+    ViewData["Title"] = "Comprar entradas";
 }
 
 <h1 class="text-center mt-3">Comprar entradas</h1>
@@ -12,40 +12,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-3">
                 <label asp-for="Cantidad" class="control-label"></label>
-                <input asp-for="Cantidad" class="form-control" />
+                <input asp-for="Cantidad" class="form-control" min="1" value="1"/>
                 <span asp-validation-for="Cantidad" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
                 <label asp-for="FechaPago" class="control-label"></label>
-                <input asp-for="FechaPago" class="form-control" />
+                <input asp-for="FechaPago" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                 <span asp-validation-for="FechaPago" class="text-danger"></span>
             </div>
-            <div class="form-group mb-3" style="display: none;">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" value="." />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3" style="display: none;">
-                <label asp-for="UpdatedBy" class="control-label"></label>
-                <input asp-for="UpdatedBy" class="form-control" value="." />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check mb-3">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-            </div>
-            <div class="form-group mb-3" style="display: none;">
-                <label asp-for="IdCliente" class="control-label"></label>
-                <select asp-for="IdCliente" class ="form-control" asp-items="ViewBag.IdCliente"></select>
-            </div>
-            <div class="form-group mb-3">
+            <div class="form-group mb-3" style="display: none">
                 <label asp-for="IdEntrada" class="control-label"></label>
-                <select asp-for="IdEntrada" class ="form-control" asp-items="ViewBag.IdEntrada"></select>
+                <input asp-for="IdEntrada" class="form-control" readonly value="@Model.IdEntrada" />
             </div>
             <div class="form-group d-flex align-items-center justify-content-between">
                 <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i></a>
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-plus pe-1"></i>Crear nuevo</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-money-bill pe-1"></i></i>Comprar</button>
             </div>
         </form>
     </div>

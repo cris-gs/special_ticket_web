@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Proyecto1SpecialTicket.Models.Entities.DetalleEntrada>
+
+@{
+    ViewData["Title"] = "Entradas";
+}
+
+<h1 class="mt-5">Entradas</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Disponibles)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoAsiento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Disponibles)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoAsiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        <a asp-action="Buy" asp-route-id="@item.Id" class="btn btn-success pe-2"><i class="fa-solid fa-money-bill pe-1"></i>Comprar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
+
+}

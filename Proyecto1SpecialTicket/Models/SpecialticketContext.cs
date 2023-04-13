@@ -321,4 +321,6 @@ public partial class SpecialticketContext : IdentityDbContext
     public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleEvento>? DetalleEvento { get; set; }
 
     public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleAsiento>? DetalleAsiento { get; set; }
+
+    public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleEntrada>? DetalleEntrada { get; set; }
 }
