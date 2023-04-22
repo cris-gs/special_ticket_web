@@ -39,7 +39,7 @@
         <dd class = "col-sm-6 text-end">
             @Html.DisplayFor(model => model.CreatedBy)
         </dd>
-        <dt class = "col-sm-6">
+        @*<dt class = "col-sm-6">
             @Html.DisplayNameFor(model => model.UpdatedAt)
         </dt>
         <dd class = "col-sm-6 text-end">
@@ -50,25 +50,37 @@
         </dt>
         <dd class = "col-sm-6 text-end">
             @Html.DisplayFor(model => model.UpdatedBy)
-        </dd>
+        </dd>*@
         <dt class = "col-sm-6">
             @Html.DisplayNameFor(model => model.Active)
         </dt>
         <dd class = "col-sm-6 text-end">
             @Html.DisplayFor(model => model.Active)
         </dd>
-        <dt class = "col-sm-6">
-            @Html.DisplayNameFor(model => model.IdClienteNavigation)
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.IdCliente)
         </dt>
-        <dd class = "col-sm-6 text-end">
-            @Html.DisplayFor(model => model.IdClienteNavigation.Id)
+        <dd class="col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdCliente)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.IdEntrada)
+        </dt>
+        <dd class="col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdEntrada)
+        </dd>
+        @*<dt class = "col-sm-6">
+        @Html.DisplayNameFor(model => model.IdClienteNavigation)
+        </dt>
+        <dd class="col-sm-6 text-end">
+        @Html.DisplayFor(model => model.IdClienteNavigation.Id)
         </dd>
         <dt class = "col-sm-6">
-            @Html.DisplayNameFor(model => model.IdEntradaNavigation)
+        @Html.DisplayNameFor(model => model.IdEntradaNavigation)
         </dt>
-        <dd class = "col-sm-6 text-end">
-            @Html.DisplayFor(model => model.IdEntradaNavigation.Id)
-        </dd>
+        <dd class="col-sm-6 text-end">
+        @Html.DisplayFor(model => model.IdEntradaNavigation.Id)
+        </dd>*@
     </dl>
     
     <form asp-action="Delete" class="d-flex align-items-center justify-content-between mt-4" style="margin: 0 auto; max-width: 500px;">

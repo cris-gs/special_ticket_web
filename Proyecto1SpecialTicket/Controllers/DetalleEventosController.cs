@@ -25,6 +25,7 @@ namespace Proyecto1SpecialTicket.Controllers
                               .Join(_context.TipoEventos, evnt => evnt.IdTipoEvento, tev => tev.Id, (evnt, tev) => new { evnt, tev })
                               .Join(_context.Escenarios, x => x.evnt.IdTipoEvento, esc => esc.Id, (ev, esc) => new { ev, esc })
                               .Join(_context.TipoEscenarios, y => y.esc.Id, te => te.IdEscenario, (esc, te) => new { esc, te })
+                              .Where(e => e.esc.ev.evnt.Fecha > DateTime.Now)
                               .OrderBy(e => e.esc.ev.evnt.Id)
                               .Select(m => new DetalleEvento 
                               {

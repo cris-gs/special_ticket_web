@@ -106,18 +106,18 @@ namespace Proyecto1SpecialTicket.Controllers
                 error = true;
             }
 
-            // Validación 2: Fecha de pago
-            var evento = await _context.Eventos.FindAsync(entrada?.IdEvento);
-            if (compra.FechaPago < DateTime.Now.Date)
-            {
-                ModelState.AddModelError("FechaPago", "La fecha de pago debe ser una fecha actual o futura.");
-                error = true;
-            }
-            else if (evento != null && compra.FechaPago > evento.Fecha)
-            {
-                ModelState.AddModelError("FechaPago", "La fecha de pago no puede ser después del evento.");
-                error = true;
-            }
+            // Validación 2: Fecha
+            //var evento = await _context.Eventos.FindAsync(entrada?.IdEvento);
+            //if (compra.FechaPago < DateTime.Now.Date)
+            //{
+            //    ModelState.AddModelError("FechaPago", "La fecha de pago debe ser una fecha actual o futura.");
+            //    error = true;
+            //}
+            //if (evento != null && DateTime.Now > evento.Fecha)
+            //{
+            //    ModelState.AddModelError("FechaPago", "El evento ya finalizó.");
+            //    error = true;
+            //}
 
             if (error == false)
             {
@@ -173,6 +173,8 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 try
                 {
+                    var compraAnterior = await _context.Compras.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+                    var entrada = await _context.Entradas.FindAsync(compra.IdEntrada);
                     var userId = _userManager.GetUserId(User);
                     var fechaCreacion = _context.Compras
                         .Where(te => te.Id == compra.Id)
@@ -182,6 +184,24 @@ namespace Proyecto1SpecialTicket.Controllers
                     compra.CreatedAt = fechaCreacion;
                     compra.UpdatedBy = userId;
                     compra.UpdatedAt = currentDateTime;
+                    if (compraAnterior != null && entrada != null)
+                    {
+                        var diferencia = compraAnterior.Cantidad - compra.Cantidad;
+                        if (diferencia < entrada.Disponibles)
+                        {
+                            entrada.Disponibles += diferencia;
+                            _context.SaveChanges();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Cantidad", "Ya no quedan suficientes entradas");
+                            return View(compra);
+                        }
+                    } else
+                    {
+                        ModelState.AddModelError("Cantidad", "No se pudo editar la entrada");
+                        return View(compra);
+                    }
                     _context.Update(compra);
                     await _context.SaveChangesAsync();
                 }
@@ -211,10 +231,7 @@ namespace Proyecto1SpecialTicket.Controllers
                 return NotFound();
             }
 
-            var compra = await _context.Compras
-                .Include(c => c.IdClienteNavigation)
-                .Include(c => c.IdEntradaNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var compra = await _context.Compras.FirstOrDefaultAsync(c => c.Id == id);
             if (compra == null)
             {
                 return NotFound();
@@ -235,11 +252,19 @@ namespace Proyecto1SpecialTicket.Controllers
             var compra = await _context.Compras.FindAsync(id);
             if (compra != null)
             {
-                _context.Compras.Remove(compra);
+                var entrada = await _context.Entradas.FindAsync(compra.IdEntrada);
+                if (entrada != null)
+                {
+                    entrada.Disponibles += compra.Cantidad;
+                    _context.SaveChanges();
+                    _context.Compras.Remove(compra);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return Problem("No se pudo borrar la entrada");
         }
 
         private bool CompraExists(int id)
