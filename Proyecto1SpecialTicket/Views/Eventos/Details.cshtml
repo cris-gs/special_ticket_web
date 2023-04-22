@@ -1,0 +1,70 @@
+﻿@model Proyecto1SpecialTicket.Models.Evento
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1 class="text-center mt-3 mb-4">Información del evento</h1>
+
+<div style="margin: 0 auto; max-width: 500px;">
+    <dl class="row">
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.IdEscenarioNavigation)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdEscenarioNavigation.Id)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.IdTipoEventoNavigation)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdTipoEventoNavigation.Id)
+        </dd>
+    </dl>
+</div>
+<div class="d-flex align-items-center justify-content-between mt-4" style="margin: 0 auto; max-width: 500px;">
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i></a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary pe-2"><i class="fa-solid fa-pen pe-1"></i></a>
+</div>

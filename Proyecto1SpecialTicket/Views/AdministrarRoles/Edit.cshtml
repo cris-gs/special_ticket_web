@@ -1,0 +1,50 @@
+﻿@model Proyecto1SpecialTicket.Models.Entities.AdministrarRoles
+
+@{
+    ViewData["Title"] = "Cambiar Rol";
+}
+
+<h1 class="text-center mt-3">Cambiar Rol</h1>
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group mb-3">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" readonly />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Rol Actual</label>
+                <input asp-for="RolName" class="form-control" readonly />
+                <span asp-validation-for="RolName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Roles" class="control-label"></label>
+                <select asp-for="Roles" class="form-control" asp-items="ViewBag.Roles">
+                    @{
+                        List<string> roles = new List<string> { "Administrador", "Cajero", "Cliente" };
+                        foreach (var role in roles)
+                        {
+                            if (role == Model.Roles)
+                            {
+                                <option value="@role" selected>@role</option>
+                            }
+                            else
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Roles" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex align-items-center justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <button type="submit" class="btn btn-success"><i class="fa-sharp fa-solid fa-floppy-disk pe-1"></i>Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

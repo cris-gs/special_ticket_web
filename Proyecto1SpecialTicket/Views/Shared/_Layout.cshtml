@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EventosCR</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Proyecto1SpecialTicket.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventosCR</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title text-white" id="offcanvasDarkNavbarLabel">Menú</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end text-center pe-3">
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Escenarios" asp-action="Index">Escenarios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="TipoEscenarios" asp-action="Index">Tipo Escenario</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white active" asp-area="" asp-controller="Asientos" asp-action="Index">Asientos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="TipoEventos" asp-action="Index">Tipo Evento</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Compras" asp-action="Index">Compras</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="ImprimirEntradas" asp-action="Index">Imprimir Entradas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="AdministrarRoles" asp-action="Index">Administrar Roles</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Cajero"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="ImprimirEntradas" asp-action="Index">Imprimir Entradas</a>
+                                </li>
+                            }
+                            <li>
+                                <partial name="_LoginPartial" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-dark text-center">
+        <div class="container text-white">
+            &copy; 2023 - EventosCR
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

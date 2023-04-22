@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Proyecto1SpecialTicket.Models.Entities.ImprimirEntrada>
+
+@{
+    ViewData["Title"] = "Lista de clientes";
+}
+
+<h1 class="mt-5">Lista de clientes</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdCliente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    <a href="@Url.Action("Imprimir", new { item.IdCliente })" class="btn btn-primary pe-2"><i class="fa-solid fa-circle-info pe-1"></i></a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
+}
+
+
+

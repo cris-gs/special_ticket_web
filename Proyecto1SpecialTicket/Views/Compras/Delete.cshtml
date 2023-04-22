@@ -1,0 +1,79 @@
+﻿@model Proyecto1SpecialTicket.Models.Compra
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<h1 class="text-center mt-3 mb-4">Eliminar la compra</h1>
+
+<h3 class="text-center mb-4">¿Estás seguro de que quieres eliminar esto?</h3>
+<div style="margin: 0 auto; max-width: 500px;">
+    <dl class="row">
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.FechaReserva)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.FechaReserva)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.FechaPago)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.IdClienteNavigation)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdClienteNavigation.Id)
+        </dd>
+        <dt class = "col-sm-6">
+            @Html.DisplayNameFor(model => model.IdEntradaNavigation)
+        </dt>
+        <dd class = "col-sm-6 text-end">
+            @Html.DisplayFor(model => model.IdEntradaNavigation.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete" class="d-flex align-items-center justify-content-between mt-4" style="margin: 0 auto; max-width: 500px;">
+        <input type="hidden" asp-for="Id" />
+        <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i></a>
+        <button type="submit" class="btn btn-danger pe-2"><i class="fa-solid fa-trash pe-1"></i></button>
+    </form>
+</div>
