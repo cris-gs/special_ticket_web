@@ -65,6 +65,9 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descripcion,Cantidad,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] Asiento asiento)
         {
+            var eventoNavigation = await _context.Escenarios.FindAsync(asiento.IdEscenario);
+            asiento.IdEscenarioNavigation = eventoNavigation;
+
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
@@ -106,38 +109,41 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 return NotFound();
             }
+            var eventoNavigation = await _context.Escenarios.FindAsync(asiento.IdEscenario);
+            asiento.IdEscenarioNavigation = eventoNavigation;
 
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            //}
+            try
             {
-                try
-                {
-                    var userId = _userManager.GetUserId(User);
-                    var fechaCreacion = _context.Asientos
-                        .Where(te => te.Id == asiento.Id)
-                        .Select(te => te.CreatedAt)
-                        .FirstOrDefault();
-                    DateTime currentDateTime = DateTime.Now;
-                    asiento.CreatedAt = fechaCreacion;
-                    asiento.UpdatedBy = userId;
-                    asiento.UpdatedAt = currentDateTime;
-                    _context.Update(asiento);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AsientoExists(asiento.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var userId = _userManager.GetUserId(User);
+                var fechaCreacion = _context.Asientos
+                    .Where(te => te.Id == asiento.Id)
+                    .Select(te => te.CreatedAt)
+                    .FirstOrDefault();
+                DateTime currentDateTime = DateTime.Now;
+                asiento.CreatedAt = fechaCreacion;
+                asiento.UpdatedBy = userId;
+                asiento.UpdatedAt = currentDateTime;
+                _context.Update(asiento);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
-            return View(asiento);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AsientoExists(asiento.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
+                    return View(asiento);
+                }
+            }
+            
+            
         }
 
         // GET: Asientos/Delete/5

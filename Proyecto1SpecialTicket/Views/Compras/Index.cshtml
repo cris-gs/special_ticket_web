@@ -38,10 +38,10 @@
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IdClienteNavigation)
+                    @Html.DisplayNameFor(model => model.IdCliente)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IdEntradaNavigation)
+                    @Html.DisplayNameFor(model => model.IdEntrada)
                 </th>
                 <th></th>
             </tr>
@@ -57,7 +57,14 @@
                         @Html.DisplayFor(modelItem => item.FechaReserva)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FechaPago)
+                        @if (item.FechaPago == new DateTime(1, 1, 1, 0, 0, 0))
+                        {
+                            <text>No ha realizado el pago</text>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.FechaPago)
+                        }
                     </td>
                     @*<td>
                         @Html.DisplayFor(modelItem => item.CreatedAt)

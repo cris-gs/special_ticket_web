@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ namespace Proyecto1SpecialTicket.Models
         public virtual DbSet<Evento> Eventos { get; set; } = null!;
         public virtual DbSet<TipoEscenario> TipoEscenarios { get; set; } = null!;
         public virtual DbSet<TipoEvento> TipoEventos { get; set; } = null!;
-        public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
+        //public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {
@@ -136,11 +137,11 @@ namespace Proyecto1SpecialTicket.Models
                     .HasColumnName("Updated_At")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.HasOne(d => d.IdClienteNavigation)
-                    .WithMany(p => p.Compras)
-                    .HasForeignKey(d => d.IdCliente)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("compra_ibfk_1");
+                //entity.HasOne(d => d.IdClienteNavigation)
+                //    .WithMany(p => p.Compras)
+                //    .HasForeignKey(d => d.IdCliente)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("compra_ibfk_1");
 
                 entity.HasOne(d => d.IdEntradaNavigation)
                     .WithMany(p => p.Compras)
@@ -343,41 +344,41 @@ namespace Proyecto1SpecialTicket.Models
                 entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
             });
 
-            modelBuilder.Entity<Usuario>(entity =>
-            {
-                entity.ToTable("usuario");
+            //    modelBuilder.Entity<Usuario>(entity =>
+            //    {
+            //        entity.ToTable("usuario");
 
-                entity.HasCharSet("utf8mb3")
-                    .UseCollation("utf8mb3_spanish_ci");
+            //        entity.HasCharSet("utf8mb3")
+            //            .UseCollation("utf8mb3_spanish_ci");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+            //        entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Correo)
-                    .HasMaxLength(100)
-                    .HasColumnName("correo");
+            //        entity.Property(e => e.Correo)
+            //            .HasMaxLength(100)
+            //            .HasColumnName("correo");
 
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Created_At")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            //        entity.Property(e => e.CreatedAt)
+            //            .HasColumnType("datetime")
+            //            .HasColumnName("Created_At")
+            //            .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.CreatedBy).HasColumnName("Created_By");
+            //        entity.Property(e => e.CreatedBy).HasColumnName("Created_By");
 
-                entity.Property(e => e.Nombre)
-                    .HasMaxLength(100)
-                    .HasColumnName("nombre");
+            //        entity.Property(e => e.Nombre)
+            //            .HasMaxLength(100)
+            //            .HasColumnName("nombre");
 
-                entity.Property(e => e.Rol).HasColumnName("rol");
+            //        entity.Property(e => e.Rol).HasColumnName("rol");
 
-                entity.Property(e => e.Telefono).HasColumnName("telefono");
+            //        entity.Property(e => e.Telefono).HasColumnName("telefono");
 
-                entity.Property(e => e.UpdatedAt)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Updated_At")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            //        entity.Property(e => e.UpdatedAt)
+            //            .HasColumnType("datetime")
+            //            .HasColumnName("Updated_At")
+            //            .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
-            });
+            //        entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
+            //    });
 
             OnModelCreatingPartial(modelBuilder);
         }
@@ -391,5 +392,7 @@ namespace Proyecto1SpecialTicket.Models
         public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleEvento>? DetalleEvento { get; set; }
 
         public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleAsiento>? DetalleAsiento { get; set; }
+
+        public DbSet<Proyecto1SpecialTicket.Models.Entities.DetalleEntrada>? DetalleEntrada { get; set; }
     }
 }

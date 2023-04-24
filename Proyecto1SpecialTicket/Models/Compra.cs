@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Proyecto1SpecialTicket.Areas.Identity.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto1SpecialTicket.Models
 {
@@ -37,11 +39,12 @@ namespace Proyecto1SpecialTicket.Models
         [DisplayName("Id entrada")]
         public int IdEntrada { get; set; }
 
-        [DisplayName("Id cliente")]
-        public virtual Users? IdClienteNavigation { get; set; }
+        //[ForeignKey("IdCliente")]
+        //[DisplayName("Id cliente")]
+        //public virtual ApplicationUser? IdClienteNavigation { get; set; }
 
         [DisplayName("Id entrada")]
-        public virtual Entrada? IdEntradaNavigation { get; set; }
+        public virtual Entrada IdEntradaNavigation { get; set; } = null!;
     }
 }
  

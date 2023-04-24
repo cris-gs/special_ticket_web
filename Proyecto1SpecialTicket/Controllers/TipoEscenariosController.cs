@@ -65,6 +65,9 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descripcion,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] TipoEscenario tipoEscenario)
         {
+            var eventoNavigation = await _context.Escenarios.FindAsync(tipoEscenario.IdEscenario);
+            tipoEscenario.IdEscenarioNavigation = eventoNavigation;
+
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
@@ -107,37 +110,41 @@ namespace Proyecto1SpecialTicket.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var eventoNavigation = await _context.Escenarios.FindAsync(tipoEscenario.IdEscenario);
+            tipoEscenario.IdEscenarioNavigation = eventoNavigation;
+
+            //if (ModelState.IsValid)
+            //{
+            //}
+            try
             {
-                try
-                {
-                    var userId = _userManager.GetUserId(User);
-                    var fechaCreacion = _context.TipoEscenarios
-                        .Where(te => te.Id == tipoEscenario.Id)
-                        .Select(te => te.CreatedAt)
-                        .FirstOrDefault();
-                    DateTime currentDateTime = DateTime.Now;
-                    tipoEscenario.CreatedAt = fechaCreacion;
-                    tipoEscenario.UpdatedBy = userId;
-                    tipoEscenario.UpdatedAt = currentDateTime;
-                    _context.Update(tipoEscenario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TipoEscenarioExists(tipoEscenario.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var userId = _userManager.GetUserId(User);
+                var fechaCreacion = _context.TipoEscenarios
+                    .Where(te => te.Id == tipoEscenario.Id)
+                    .Select(te => te.CreatedAt)
+                    .FirstOrDefault();
+                DateTime currentDateTime = DateTime.Now;
+                tipoEscenario.CreatedAt = fechaCreacion;
+                tipoEscenario.UpdatedBy = userId;
+                tipoEscenario.UpdatedAt = currentDateTime;
+                _context.Update(tipoEscenario);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", tipoEscenario.IdEscenario);
-            return View(tipoEscenario);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TipoEscenarioExists(tipoEscenario.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", tipoEscenario.IdEscenario);
+                    return View(tipoEscenario);
+                }
+            }
+            
+            
         }
 
         // GET: TipoEscenarios/Delete/5

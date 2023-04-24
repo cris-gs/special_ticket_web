@@ -52,7 +52,14 @@
                         @Html.DisplayFor(modelItem => item.FechaReserva)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FechaPago)
+                        @if (item.FechaPago == new DateTime(1, 1, 1, 0, 0, 0))
+                        {
+                            <text>No ha realizado el pago</text>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.FechaPago)
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.TipoAsiento)

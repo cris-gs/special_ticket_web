@@ -89,6 +89,9 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Disponibles,TipoAsiento,Precio,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEvento")] Entrada entrada)
         {
+            var eventoNavigation = await _context.Eventos.FindAsync(entrada.IdEvento);
+            entrada.IdEventoNavigation = eventoNavigation;
+
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
@@ -128,7 +131,7 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEvento);
+            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEventoNavigation);
             return View(entrada);
         }
 
@@ -144,37 +147,39 @@ namespace Proyecto1SpecialTicket.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var eventoNavigation = await _context.Eventos.FindAsync(entrada.IdEvento);
+            entrada.IdEventoNavigation = eventoNavigation;
+
+            //if (ModelState.IsValid)
+            //{
+            //}
+            try
             {
-                try
-                {
-                    var userId = _userManager.GetUserId(User);
-                    var fechaCreacion = _context.Entradas
-                        .Where(te => te.Id == entrada.Id)
-                        .Select(te => te.CreatedAt)
-                        .FirstOrDefault();
-                    DateTime currentDateTime = DateTime.Now;
-                    entrada.CreatedAt = fechaCreacion;
-                    entrada.UpdatedBy = userId;
-                    entrada.UpdatedAt = currentDateTime;
-                    _context.Update(entrada);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EntradaExists(entrada.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var userId = _userManager.GetUserId(User);
+                var fechaCreacion = _context.Entradas
+                    .Where(te => te.Id == entrada.Id)
+                    .Select(te => te.CreatedAt)
+                    .FirstOrDefault();
+                DateTime currentDateTime = DateTime.Now;
+                entrada.CreatedAt = fechaCreacion;
+                entrada.UpdatedBy = userId;
+                entrada.UpdatedAt = currentDateTime;
+                _context.Update(entrada);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEvento);
-            return View(entrada);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EntradaExists(entrada.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    ViewData["IdEvento"] = new SelectList(_context.Eventos, "Id", "Id", entrada.IdEventoNavigation);
+                    return View(entrada);
+                }
+            }
         }
 
         // GET: Entradas/Delete/5
@@ -210,14 +215,14 @@ namespace Proyecto1SpecialTicket.Controllers
             {
                 _context.Entradas.Remove(entrada);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EntradaExists(int id)
         {
-          return (_context.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
