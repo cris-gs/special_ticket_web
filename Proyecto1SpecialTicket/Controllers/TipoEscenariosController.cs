@@ -9,52 +9,48 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.BLL.Services.Implementations;
 using Proyecto1SpecialTicket.Models;
+using SkiaSharp;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class TipoEscenariosController : Controller
     {
-        private readonly specialticketContext _context;
+        private readonly ITipoEscenarioService _tipoEscenarioService;
+        private readonly IEscenarioService _escenarioService;
         private readonly UserManager<Proyecto1SpecialTicketUser> _userManager;
 
-        public TipoEscenariosController(specialticketContext context, UserManager<Proyecto1SpecialTicketUser> userManager)
+        public TipoEscenariosController(ITipoEscenarioService tipoEscenario, IEscenarioService escenarioService, UserManager<Proyecto1SpecialTicketUser> userManager)
         {
-            _context = context;
+            _tipoEscenarioService = tipoEscenario;
+            _escenarioService = escenarioService;
             _userManager = userManager;
         }
 
         // GET: TipoEscenarios
         public async Task<IActionResult> Index()
         {
-            var specialticketContext = _context.TipoEscenarios.Include(t => t.IdEscenarioNavigation);
-            return View(await specialticketContext.ToListAsync());
+            return View(await _tipoEscenarioService.GetAllTipoEscenariosAsync());
         }
 
         // GET: TipoEscenarios/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null || _context.TipoEscenarios == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var tipoEscenario = await _context.TipoEscenarios
-                .Include(t => t.IdEscenarioNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoEscenario == null)
-            {
-                return NotFound();
-            }
+            var tipoEscenario = await _tipoEscenarioService.GetTipoEscenarioByIdAsync(id);
+            if (tipoEscenario == null) return NotFound();
 
             return View(tipoEscenario);
         }
 
         // GET: TipoEscenarios/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id");
+            var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
             return View();
         }
 
@@ -65,36 +61,33 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descripcion,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] TipoEscenario tipoEscenario)
         {
-            var eventoNavigation = await _context.Escenarios.FindAsync(tipoEscenario.IdEscenario);
-            tipoEscenario.IdEscenarioNavigation = eventoNavigation;
+            var escenarioNavigation = await _escenarioService.GetEscenariosByIdAsync(tipoEscenario.IdEscenario);
+            tipoEscenario.IdEscenarioNavigation = escenarioNavigation;
 
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
                 tipoEscenario.CreatedBy = userId;
                 tipoEscenario.UpdatedBy = userId;
-                _context.Add(tipoEscenario);
-                await _context.SaveChangesAsync();
+                await _tipoEscenarioService.CreateTipoEscenariosAsync(tipoEscenario);
+ 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", tipoEscenario.IdEscenario);
+            var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
             return View(tipoEscenario);
         }
 
         // GET: TipoEscenarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.TipoEscenarios == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var tipoEscenario = await _context.TipoEscenarios.FindAsync(id);
-            if (tipoEscenario == null)
-            {
-                return NotFound();
-            }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", tipoEscenario.IdEscenario);
+            var tipoEscenario = await _tipoEscenarioService.GetTipoEscenarioByIdAsync(id);
+            if (tipoEscenario == null) return NotFound();
+
+            var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
             return View(tipoEscenario);
         }
 
@@ -105,30 +98,25 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] TipoEscenario tipoEscenario)
         {
-            if (id != tipoEscenario.Id)
-            {
-                return NotFound();
-            }
+            if (id != tipoEscenario.Id) return NotFound();
 
-            var eventoNavigation = await _context.Escenarios.FindAsync(tipoEscenario.IdEscenario);
-            tipoEscenario.IdEscenarioNavigation = eventoNavigation;
+            var escenarioNavigation = await _escenarioService.GetEscenariosByIdAsync(tipoEscenario.IdEscenario);
+            tipoEscenario.IdEscenarioNavigation = escenarioNavigation;
 
             //if (ModelState.IsValid)
             //{
             //}
             try
             {
+                //var fechaCreacion = _context.TipoEscenarios
+                //    .Where(te => te.Id == tipoEscenario.Id)
+                //    .Select(te => te.CreatedAt)
+                //    .FirstOrDefault();
+                //tipoEscenario.CreatedAt = fechaCreacion;
                 var userId = _userManager.GetUserId(User);
-                var fechaCreacion = _context.TipoEscenarios
-                    .Where(te => te.Id == tipoEscenario.Id)
-                    .Select(te => te.CreatedAt)
-                    .FirstOrDefault();
-                DateTime currentDateTime = DateTime.Now;
-                tipoEscenario.CreatedAt = fechaCreacion;
                 tipoEscenario.UpdatedBy = userId;
-                tipoEscenario.UpdatedAt = currentDateTime;
-                _context.Update(tipoEscenario);
-                await _context.SaveChangesAsync();
+
+                await _tipoEscenarioService.UpdateTipoEscenariosAsync(tipoEscenario);
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
@@ -139,7 +127,9 @@ namespace Proyecto1SpecialTicket.Controllers
                 }
                 else
                 {
-                    ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", tipoEscenario.IdEscenario);
+                    var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+                    ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
+
                     return View(tipoEscenario);
                 }
             }
@@ -148,20 +138,13 @@ namespace Proyecto1SpecialTicket.Controllers
         }
 
         // GET: TipoEscenarios/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null || _context.TipoEscenarios == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var tipoEscenario = await _context.TipoEscenarios
-                .Include(t => t.IdEscenarioNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoEscenario == null)
-            {
-                return NotFound();
-            }
+            var tipoEscenario = await _tipoEscenarioService.GetTipoEscenarioByIdAsync(id);
+
+            if (tipoEscenario == null) return NotFound();
 
             return View(tipoEscenario);
         }
@@ -171,23 +154,28 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.TipoEscenarios == null)
+
+            var tipoEscenario = await _tipoEscenarioService.GetTipoEscenarioByIdAsync(id);
+            tipoEscenario.Active = false;
+
+            try
             {
-                return Problem("Entity set 'specialticketContext.TipoEscenarios'  is null.");
+                await _tipoEscenarioService.UpdateTipoEscenariosAsync(tipoEscenario);
             }
-            var tipoEscenario = await _context.TipoEscenarios.FindAsync(id);
-            if (tipoEscenario != null)
+            catch (DbUpdateConcurrencyException)
             {
-                _context.TipoEscenarios.Remove(tipoEscenario);
+                if (!TipoEscenarioExists(tipoEscenario.Id))
+                    return NotFound();
+                else throw;
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool TipoEscenarioExists(int id)
         {
-          return (_context.TipoEscenarios?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _tipoEscenarioService.GetTipoEscenarioByIdAsync(id) == null ? true : false;
         }
+
     }
 }

@@ -202,7 +202,7 @@ namespace Proyecto1SpecialTicket.Controllers
         //{
         //    if (_context.AdministrarRoles == null)
         //    {
-        //        return Problem("Entity set 'SpecialticketContext.AdministrarRoles'  is null.");
+        //        return Problem("Entity set 'specialticketContext.AdministrarRoles'  is null.");
         //    }
         //    var administrarRoles = await _context.AdministrarRoles.FindAsync(id);
         //    if (administrarRoles != null)

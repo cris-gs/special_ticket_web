@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.Models;
+//using Proyecto1SpecialTicket.Areas.Identity.Data;
 
-namespace Proyecto1SpecialTicket.Models
+namespace Proyecto1SpecialTicket.DAL.DataContext
 {
     public partial class specialticketContext : IdentityDbContext
     {
@@ -52,7 +53,7 @@ namespace Proyecto1SpecialTicket.Models
             modelBuilder.Entity<IdentityUserRole<string>>()
                 .HasKey(p => new { p.UserId, p.RoleId });
 
-            modelBuilder.Entity<Proyecto1SpecialTicketUser>().ToTable("Proyecto1SpecialTicketUsers");
+            //modelBuilder.Entity<Proyecto1SpecialTicketUser>().ToTable("Proyecto1SpecialTicketUsers");
 
             modelBuilder.Entity<IdentityUserToken<string>>().HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
 

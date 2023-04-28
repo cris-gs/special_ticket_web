@@ -8,45 +8,41 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Proyecto1SpecialTicket.BLL.Services.Implementations;
 using Proyecto1SpecialTicket.Areas.Identity.Data;
 using Proyecto1SpecialTicket.Models;
+using SpecialTicket.BLL.Services.Implementations;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class EscenariosController : Controller
     {
-        private readonly specialticketContext _context;
+        //private readonly specialticketContext _context;
+        private readonly IEscenarioService _escenarioService;
         private readonly UserManager<Proyecto1SpecialTicketUser> _userManager;
 
-        public EscenariosController(specialticketContext context, UserManager<Proyecto1SpecialTicketUser> userManager)
+        public EscenariosController(IEscenarioService escenarioService, UserManager<Proyecto1SpecialTicketUser> userManager)
         {
-            _context = context;
+            //_context = context;
+            _escenarioService = escenarioService;
             _userManager = userManager;
         }
 
         // GET: Escenarios
         public async Task<IActionResult> Index()
         {
-              return _context.Escenarios != null ? 
-                          View(await _context.Escenarios.ToListAsync()) :
-                          Problem("Entity set 'specialticketContext.Escenarios'  is null.");
+            return View(await _escenarioService.GetAllEscenariosAsync());
         }
 
         // GET: Escenarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Escenarios == null)
-            {
-                return NotFound();
-            }
+            if (id == null ) return NotFound();
 
-            var escenario = await _context.Escenarios
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (escenario == null)
-            {
-                return NotFound();
-            }
+            var escenario = await _escenarioService.GetEscenariosByIdAsync(id);
+
+            if (escenario == null) return NotFound();
 
             return View(escenario);
         }
@@ -69,8 +65,9 @@ namespace Proyecto1SpecialTicket.Controllers
                 var userId = _userManager.GetUserId(User);
                 escenario.CreatedBy = userId;
                 escenario.UpdatedBy = userId;
-                _context.Add(escenario);
-                await _context.SaveChangesAsync();
+                //_context.Add(escenario);
+                //await _context.SaveChangesAsync();
+                await _escenarioService.CreateEscenariosAsync(escenario);
                 return RedirectToAction(nameof(Index));
             }
             return View(escenario);
@@ -79,16 +76,11 @@ namespace Proyecto1SpecialTicket.Controllers
         // GET: Escenarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Escenarios == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var escenario = await _context.Escenarios.FindAsync(id);
-            if (escenario == null)
-            {
-                return NotFound();
-            }
+            var escenario = await _escenarioService.GetEscenariosByIdAsync(id);
+            if (escenario == null) return NotFound();
+
             return View(escenario);
         }
 
@@ -99,37 +91,27 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Localizacion,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active")] Escenario escenario)
         {
-            if (id != escenario.Id)
-            {
-                return NotFound();
-            }
+            if (id != escenario.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //var fechaCreacion = _context.Escenarios
+                    //    .Where(te => te.Id == escenario.Id)
+                    //    .Select(te => te.CreatedAt)
+                    //    .FirstOrDefault();
+                    
+                    //escenario.CreatedAt = fechaCreacion;
                     var userId = _userManager.GetUserId(User);
-                    var fechaCreacion = _context.Escenarios
-                        .Where(te => te.Id == escenario.Id)
-                        .Select(te => te.CreatedAt)
-                        .FirstOrDefault();
-                    DateTime currentDateTime = DateTime.Now;
-                    escenario.CreatedAt = fechaCreacion;
                     escenario.UpdatedBy = userId;
-                    escenario.UpdatedAt = currentDateTime;
-                    _context.Update(escenario);
-                    await _context.SaveChangesAsync();
+                    await _escenarioService.UpdateEscenariosAsync(escenario);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!EscenarioExists(escenario.Id))
-                    {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -139,17 +121,11 @@ namespace Proyecto1SpecialTicket.Controllers
         // GET: Escenarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Escenarios == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var escenario = await _context.Escenarios
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (escenario == null)
-            {
-                return NotFound();
-            }
+            var escenario = await _escenarioService.GetEscenariosByIdAsync(id);
+
+            if (escenario == null) return NotFound();
 
             return View(escenario);
         }
@@ -159,23 +135,27 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Escenarios == null)
+
+            var escenario = await _escenarioService.GetEscenariosByIdAsync(id);
+            escenario.Active = false;
+
+            try
             {
-                return Problem("Entity set 'specialticketContext.Escenarios'  is null.");
+                await _escenarioService.UpdateEscenariosAsync(escenario);
             }
-            var escenario = await _context.Escenarios.FindAsync(id);
-            if (escenario != null)
+            catch (DbUpdateConcurrencyException)
             {
-                _context.Escenarios.Remove(escenario);
+                if (!EscenarioExists(escenario.Id))
+                    return NotFound();
+                else throw;
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool EscenarioExists(int id)
         {
-          return (_context.Escenarios?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _escenarioService.GetEscenariosByIdAsync(id) == null ? true : false;
         }
     }
 }

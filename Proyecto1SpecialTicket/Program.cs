@@ -6,6 +6,7 @@ using Proyecto1SpecialTicket.Data;
 using Proyecto1SpecialTicket.Areas.Identity.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Proyecto1SpecialTicket.DAL.DataContext;
 
 var builder = WebApplication.CreateBuilder(args);
 

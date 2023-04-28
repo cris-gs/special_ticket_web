@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Proyecto1SpecialTicket.DAL\Proyecto1SpecialTicket.DAL.csproj" />
+    <ProjectReference Include="..\Proyecto1SpecialTicket.Models\Proyecto1SpecialTicket.Models.csproj" />
+  </ItemGroup>
+
+</Project>
