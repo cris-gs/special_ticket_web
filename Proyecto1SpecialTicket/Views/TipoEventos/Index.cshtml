@@ -28,9 +28,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.UpdatedBy)
                 </th>*@
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Active)
-                </th>
+                </th>*@
                 <th></th>
             </tr>
         </thead>
@@ -53,9 +53,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.UpdatedBy)
                     </td>*@
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.Active)
-                    </td>
+                    </td>*@
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary pe-2"><i class="fa-solid fa-pen pe-1"></i></a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info pe-2"><i class="fa-solid fa-eye pe-1 text-white"></i></a>

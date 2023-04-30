@@ -3,7 +3,7 @@ using Proyecto1SpecialTicket.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Proyecto1SpecialTicket.BLL.Services.Implementations
+namespace Proyecto1SpecialTicket.BLL.Services.Interfaces
 {
     /// <summary>
     /// Service Interface for TipoEvento. 
@@ -13,5 +13,11 @@ namespace Proyecto1SpecialTicket.BLL.Services.Implementations
     {
 
         Task<IEnumerable<TipoEvento>> GetAllTipoEventosAsync();
+
+        Task<TipoEvento> GetTipoEventoByIdAsync(int? id);
+
+        Task<TipoEvento> CreateTipoEventoAsync(TipoEvento tipoEvento);
+
+        Task<TipoEvento> UpdateTipoEventoAsync(TipoEvento tipoEvento);
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
 
-namespace Proyecto1SpecialTicket.Data;
+namespace Proyecto1SpecialTicket.IdentityData;
 
 public class Proyecto1SpecialTicketContext : IdentityDbContext<Proyecto1SpecialTicketUser>
 {

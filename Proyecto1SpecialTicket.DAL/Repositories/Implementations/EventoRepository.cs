@@ -44,69 +44,64 @@ namespace Proyecto1SpecialTicket.DAL.Repositories.Implementations
 
         public async Task<IEnumerable<DetalleEvento>> GetDetalleEventosAsync()
         {
-            var listaEventos = (from E in _context.Eventos
-                                 join TE in _context.TipoEventos on E.IdTipoEvento equals TE.Id
-                                 join ESC in _context.Escenarios on E.IdEscenario equals ESC.Id
-                                 join TESC in _context.TipoEscenarios on ESC.Id equals TESC.IdEscenario
-                                 where E.Active
-                                 orderby E.Id ascending
-                                 select new DetalleEvento
-                                 {
-                                     Id = E.Id,
-                                     Descripcion = E.Descripcion,
-                                     TipoEvento = TE.Descripcion,
-                                     Fecha = E.Fecha,
-                                     TipoEscenario = TESC.Descripcion,
-                                     Escenario = ESC.Nombre,
-                                     Localizacion = ESC.Localizacion
-                                 }).ToListAsync();
-            return await listaEventos;
+            var now = DateTime.Now;
+            var listaEventos = await (from ev in _context.Eventos
+                         join tev in _context.TipoEventos on ev.IdTipoEvento equals tev.Id
+                         join esc in _context.Escenarios on ev.IdEscenario equals esc.Id
+                         join te in _context.TipoEscenarios on esc.Id equals te.IdEscenario
+                         where ev.Fecha > now && ev.Active == true
+                         orderby ev.Id ascending
+                         select new DetalleEvento
+                         {
+                             Id = ev.Id,
+                             Descripcion = ev.Descripcion,
+                             TipoEvento = tev.Descripcion,
+                             Fecha = ev.Fecha,
+                             TipoEscenario = te.Descripcion,
+                             Escenario = esc.Nombre,
+                             Localizacion = esc.Localizacion
+                         }).Distinct().ToListAsync();
+
+            return listaEventos;
         }
 
-        public async Task<EventoAsientos> GetEventoAsientosAsync(int? id)
+        public async Task<DetalleEvento> GetDetalleEventosByIdAsync(int? id)
         {
-            var evento = await _context.Eventos
-                                       .Include(esc => esc.IdEscenarioNavigation)
-                                            .ThenInclude(tesc => tesc.TipoEscenarios)
-                                       .Include(te => te.IdTipoEventoNavigation)
-                                       .Where(e => e.Active && e.Id == id)
-                                       .Select(e => new DetalleEvento
-                                       {
-                                           Id = e.Id,
-                                           Descripcion = e.Descripcion,
-                                           TipoEvento = e.IdTipoEventoNavigation.Descripcion,
-                                           Fecha = e.Fecha,
-                                           TipoEscenario = e.IdEscenarioNavigation.TipoEscenarios.Select(te => te.Descripcion).FirstOrDefault(),
-                                           Escenario = e.IdEscenarioNavigation.Nombre,
-                                           Localizacion = e.IdEscenarioNavigation.Localizacion
-                                       }).FirstOrDefaultAsync();
+            var evento = await (from ev in _context.Eventos
+                          join tev in _context.TipoEventos on ev.IdTipoEvento equals tev.Id
+                          join esc in _context.Escenarios on ev.IdEscenario equals esc.Id
+                          join te in _context.TipoEscenarios on esc.Id equals te.IdEscenario
+                          where ev.Id == id && ev.Active == true
+                          select new DetalleEvento
+                          {
+                              Id = ev.Id,
+                              Descripcion = ev.Descripcion,
+                              TipoEvento = tev.Descripcion,
+                              Fecha = ev.Fecha,
+                              TipoEscenario = te.Descripcion,
+                              Escenario = esc.Nombre,
+                              Localizacion = esc.Localizacion
+                          }).FirstOrDefaultAsync();
 
-            var asientos = await (from E in _context.Eventos
-                                  join ESC in _context.Escenarios on E.IdEscenario equals ESC.Id
-                                  join AS in _context.Asientos on ESC.Id equals AS.IdEscenario
-                                  where E.Active && AS.Active && E.Id == id
-                                  orderby E.Id ascending
-                                  select new AsientoPrecio
-                                  {
-                                      Id = AS.Id,
-                                      Descripcion = AS.Descripcion,
-                                      Cantidad = AS.Cantidad,
-                                      Precio = 0
-                                  }).ToListAsync();
+            return evento;
+        }
 
-            var eventoAsientos = new EventoAsientos
-            {
-                Id = evento.Id,
-                Descripcion = evento.Descripcion,
-                TipoEvento = evento.TipoEvento,
-                Fecha = evento.Fecha,
-                TipoEscenario = evento.TipoEscenario,
-                Escenario = evento.Escenario,
-                Localizacion = evento.Localizacion,
-                Asientos = asientos
-            };
+        public async Task<IEnumerable<DetalleAsiento>> GetDetalleAsientosAsync(int? id)
+        {
+            var listaAsientos = await _context.Eventos
+                              .Join(_context.TipoEventos, e => e.IdTipoEvento, te => te.Id, (e, te) => new { Evento = e, TipoEvento = te })
+                              .Join(_context.Escenarios, ev => ev.Evento.IdEscenario, esc => esc.Id, (ev, esc) => new { ev, Escenario = esc })
+                              .Join(_context.Asientos, es => es.Escenario.Id, a => a.IdEscenario, (es, a) => new { es, Asiento = a })
+                              .Where(x => x.Asiento.Active && x.es.ev.Evento.Id == id)
+                              .Select(x => new DetalleAsiento
+                              {
+                                  Id = x.Asiento.Id,
+                                  IdEvento = x.es.ev.Evento.Id,
+                                  TipoAsiento = x.Asiento.Descripcion,
+                                  Cantidad = x.Asiento.Cantidad
+                              }).ToListAsync();
 
-            return eventoAsientos;
+            return listaAsientos;
         }
 
         //public async Task<Evento> GetEventByIdAsync(int id)

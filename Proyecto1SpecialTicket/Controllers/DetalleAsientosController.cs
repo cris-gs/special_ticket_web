@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.Models;
 using Proyecto1SpecialTicket.Models.Entities;
 
@@ -15,36 +16,27 @@ namespace Proyecto1SpecialTicket.Controllers
     [Authorize(Roles = "Administrador")]
     public class DetalleAsientosController : Controller
     {
-        private readonly specialticketContext _context;
+        //private readonly specialticketContext _context;
+        private readonly IEventoService _eventoService;
 
-        public DetalleAsientosController(specialticketContext context)
+        public DetalleAsientosController(IEventoService eventoService)
         {
-            _context = context;
+            //_context = context;
+            _eventoService = eventoService;
         }
 
         // GET: DetalleAsientos
-        public IActionResult Index(int? id)
+        public async Task<IActionResult> Index(int? id)
         {
-            var listaAsientos = _context.Eventos
-                              .Join(_context.TipoEventos, e => e.IdTipoEvento, te => te.Id, (e, te) => new { Evento = e, TipoEvento = te })
-                              .Join(_context.Escenarios, ev => ev.Evento.IdEscenario, esc => esc.Id, (ev, esc) => new { ev, Escenario = esc })
-                              .Join(_context.Asientos, es => es.Escenario.Id, a => a.IdEscenario, (es, a) => new { es, Asiento = a })
-                              .Where(x => x.es.ev.Evento.Active && x.es.ev.Evento.Id == id)
-                              .Select(x => new DetalleAsiento
-                              {
-                                  Id = x.Asiento.Id,
-                                  IdEvento = x.es.ev.Evento.Id,
-                                  TipoAsiento = x.Asiento.Descripcion,
-                                  Cantidad = x.Asiento.Cantidad
-                              }).ToList();
+            var listaAsientos = await _eventoService.GetDetalleAsientosAsync(id);
 
             return View(listaAsientos);
         }
 
         // Crear entradas
-        public IActionResult Create(int? id, int? idE)
+        public IActionResult Create(int? idAsiento, int? idEvento)
         {
-            return RedirectToAction("Create", "Entradas", new { id = id, idE = idE });
+            return RedirectToAction("Create", "Entradas", new { idAsiento, idEvento });
         }
 
     }

@@ -28,7 +28,7 @@ namespace Proyecto1SpecialTicket.DAL.Repositories.Implementations
                                  .ToListAsync();
         }
 
-        public async Task<TipoEvento> GetTipoEventoByIdAsync(int id)
+        public async Task<TipoEvento> GetTipoEventoByIdAsync(int? id)
         {
             return await _context.TipoEventos
                                  .Where(t => t.Active)

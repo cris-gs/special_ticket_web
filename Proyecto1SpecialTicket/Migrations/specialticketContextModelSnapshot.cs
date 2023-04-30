@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto1SpecialTicket.Models;
+using Proyecto1SpecialTicket.DAL.DataContext;
 
 #nullable disable
 

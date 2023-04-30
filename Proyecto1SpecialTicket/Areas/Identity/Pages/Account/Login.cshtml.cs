@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
 
 namespace Proyecto1SpecialTicket.Areas.Identity.Pages.Account
 {

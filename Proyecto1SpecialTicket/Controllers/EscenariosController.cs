@@ -8,10 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.BLL.Services.Implementations;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
+using Proyecto1SpecialTicket.IdentityData;
 using Proyecto1SpecialTicket.Models;
-using SpecialTicket.BLL.Services.Implementations;
 
 namespace Proyecto1SpecialTicket.Controllers
 {

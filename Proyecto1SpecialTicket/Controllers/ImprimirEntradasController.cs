@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.Models;
 using Proyecto1SpecialTicket.Models.Entities;
+using Proyecto1SpecialTicket.DAL.DataContext;
 
 
 namespace Proyecto1SpecialTicket.Controllers
@@ -15,11 +17,13 @@ namespace Proyecto1SpecialTicket.Controllers
     public class ImprimirEntradasController : Controller
     {
         private readonly specialticketContext _context;
+        private readonly ICompraService _compraService;
         private readonly UserManager<Proyecto1SpecialTicketUser> _userManager;
 
-        public ImprimirEntradasController(specialticketContext context, UserManager<Proyecto1SpecialTicketUser> userManager)
+        public ImprimirEntradasController(specialticketContext context, ICompraService compraService, UserManager<Proyecto1SpecialTicketUser> userManager)
         {
             _context = context;
+            _compraService = compraService;
             _userManager = userManager;
         }
 
@@ -37,29 +41,12 @@ namespace Proyecto1SpecialTicket.Controllers
         }
 
 
-        public IActionResult Imprimir(string? idCliente)
+        public async Task<IActionResult> Imprimir(string? idCliente)
         {
-            if (idCliente == null)
-            {
-                return NotFound();
-            }
+            if (idCliente == null) return NotFound();
 
             //Todo: Agregar al modelo una propiedad de pagado que se muestra en true si ya tiene fecha de pago
-            var listaEntradaComprada = _context.Compras
-                                    .Where(c => c.IdCliente == idCliente)
-                                    .Join(_context.Entradas, c => c.IdEntrada, en => en.Id, (c, en) => new { Compra = c, Entrada = en })
-                                    .Join(_context.Eventos, ce => ce.Entrada.IdEvento, ev => ev.Id, (ce, ev) => new { CompraEntrada = ce, Evento = ev })
-                                    .Select(cev => new ImprimirEntrada
-                                    {
-                                        Id = cev.CompraEntrada.Compra.Id,
-                                        Cantidad = cev.CompraEntrada.Compra.Cantidad,
-                                        FechaReserva = cev.CompraEntrada.Compra.FechaReserva,
-                                        FechaPago = cev.CompraEntrada.Compra.FechaPago,
-                                        TipoAsiento = cev.CompraEntrada.Entrada.TipoAsiento,
-                                        Precio = cev.CompraEntrada.Entrada.Precio,
-                                        Total = cev.CompraEntrada.Entrada.Precio * cev.CompraEntrada.Compra.Cantidad,
-                                        Evento = cev.Evento.Descripcion
-                                    }).ToList();
+            var listaEntradaComprada = await _compraService.GetCompraByClienteAsync(idCliente);
 
             return View(listaEntradaComprada);
         }
@@ -67,33 +54,12 @@ namespace Proyecto1SpecialTicket.Controllers
         public async Task<IActionResult> ImprimirDoc(int? id)
         {
 
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var fechaReserva = _context.Compras
-                        .Where(te => te.Id == id)
-                        .Select(te => te.FechaReserva)
-                        .FirstOrDefault();
+            var fechaReserva = _compraService.GetFechaReserva(id);
             DateTime currentDateTime = DateTime.Now;
 
-            var listaEntradaComprada = _context.Compras
-                                    .Where(c => c.Id == id)
-                                    .Select(cev => new Compra
-                                    {
-                                        Id = cev.Id,
-                                        Cantidad = cev.Cantidad,
-                                        FechaReserva = cev.FechaReserva,
-                                        FechaPago = cev.FechaPago,
-                                        CreatedAt = cev.CreatedAt,
-                                        CreatedBy = cev.CreatedBy,
-                                        UpdatedAt = cev.UpdatedAt,
-                                        UpdatedBy = cev.UpdatedBy,
-                                        Active = cev.Active,
-                                        IdCliente = cev.IdCliente,
-                                        IdEntrada = cev.IdEntrada
-                                    }).ToList();
+            var listaEntradaComprada = await _compraService.GetEntradaCompradaByIdAsync(id);
 
             Compra compra = new()
             {
@@ -115,8 +81,7 @@ namespace Proyecto1SpecialTicket.Controllers
 
             try
             {
-                _context.Update(compra);
-                await _context.SaveChangesAsync();
+                await _compraService.UpdateCompraAsync(compra);
 
                 var entradaComprada = (from c in _context.Compras
                                        join en in _context.Entradas on c.IdEntrada equals en.Id
@@ -244,20 +209,17 @@ namespace Proyecto1SpecialTicket.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompraExists(compra.Id))
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    if (!CompraExists(compra.Id))
+                        return NotFound();
+                    else throw;
                 }
             }
         }
 
         private bool CompraExists(int id)
         {
-            return _context.Compras.Any(e => e.Id == id);
+            return _compraService.GetCompraByIdAsync(id) == null ? true : false;
         }
     }
 }

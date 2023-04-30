@@ -23,14 +23,16 @@ namespace Proyecto1SpecialTicket.DAL.Repositories.Implementations
 
         public async Task<IEnumerable<Escenario>> GetAllEscenariosAsync()
         {
-            return await _context.Escenarios.ToListAsync();
+            return await _context.Escenarios.Where(t => t.Active).ToListAsync();
         }
 
         public async Task<Escenario> GetEscenarioByIdAsync(int? id)
         {
-            return await _context.Escenarios
+            var escenario = await _context.Escenarios
                                  .Where(t => t.Active)
                                  .FirstOrDefaultAsync(m => m.Id == id);
+
+            return escenario;
         }
     }
 }

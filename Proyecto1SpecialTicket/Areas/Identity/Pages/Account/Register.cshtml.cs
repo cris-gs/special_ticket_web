@@ -19,8 +19,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
 using Proyecto1SpecialTicket.Models;
+using Proyecto1SpecialTicket.DAL.DataContext;
 using SkiaSharp;
 
 namespace Proyecto1SpecialTicket.Areas.Identity.Pages.Account

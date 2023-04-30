@@ -2,11 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Proyecto1SpecialTicket.Models;
 using Microsoft.AspNetCore.Identity;
-using Proyecto1SpecialTicket.Data;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Proyecto1SpecialTicket.DAL.DataContext;
+using Proyecto1SpecialTicket.BLL.Services.Implementations;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
+using Proyecto1SpecialTicket.DAL.Repositories.Implementations;
+using Proyecto1SpecialTicket.DAL.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +24,21 @@ builder.Services.AddDbContext<specialticketContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+
+builder.Services.AddScoped<IEscenarioService, EscenarioService>();
+builder.Services.AddScoped<IEscenarioRepository, EscenarioRepository>();
+builder.Services.AddScoped<ITipoEscenarioService, TipoEscenarioService>();
+builder.Services.AddScoped<ITipoEscenarioRepository, TipoEscenarioRepository>();
+builder.Services.AddScoped<IAsientoService, AsientoService>();
+builder.Services.AddScoped<IAsientoRepository, AsientoRepository>();
+builder.Services.AddScoped<IEventoService, EventoService>();
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
+builder.Services.AddScoped<ITipoEventoService, TipoEventoService>();
+builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
+builder.Services.AddScoped<IEntradaService, EntradaService>();
+builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
+builder.Services.AddScoped<ICompraService, CompraService>();
+builder.Services.AddScoped<ICompraRepository, CompraRepository>();
 
 builder.Services.AddIdentity<Proyecto1SpecialTicketUser, IdentityRole>(options =>
 {

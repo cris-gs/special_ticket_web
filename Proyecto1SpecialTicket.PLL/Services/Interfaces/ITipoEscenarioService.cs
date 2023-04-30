@@ -4,7 +4,7 @@ using Proyecto1SpecialTicket.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Proyecto1SpecialTicket.BLL.Services.Implementations
+namespace Proyecto1SpecialTicket.BLL.Services.Interfaces
 {
     /// <summary>
     /// Service Interface for Escenario. 

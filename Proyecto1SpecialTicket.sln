@@ -5,11 +5,11 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proyecto1SpecialTicket", "Proyecto1SpecialTicket\Proyecto1SpecialTicket.csproj", "{98EE2462-70BA-47DA-9173-DC26451EB4F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proyecto1SpecialTicket.Models", "Proyecto1SpecialTicket.Models\Proyecto1SpecialTicket.Models.csproj", "{0B653CD6-74E4-4975-A19A-329962779039}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proyecto1SpecialTicket.Models", "Proyecto1SpecialTicket.Models\Proyecto1SpecialTicket.Models.csproj", "{0B653CD6-74E4-4975-A19A-329962779039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proyecto1SpecialTicket.DAL", "Proyecto1SpecialTicket.DAL\Proyecto1SpecialTicket.DAL.csproj", "{A8DFFE9C-998F-4666-927F-C27F5EFC2B1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proyecto1SpecialTicket.DAL", "Proyecto1SpecialTicket.DAL\Proyecto1SpecialTicket.DAL.csproj", "{A8DFFE9C-998F-4666-927F-C27F5EFC2B1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proyecto1SpecialTicket.BLL", "Proyecto1SpecialTicket.PLL\Proyecto1SpecialTicket.BLL.csproj", "{E1BC5763-89B2-4AC9-AC1C-0A1799F7F929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proyecto1SpecialTicket.BLL", "Proyecto1SpecialTicket.PLL\Proyecto1SpecialTicket.BLL.csproj", "{E1BC5763-89B2-4AC9-AC1C-0A1799F7F929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
@@ -16,37 +17,31 @@ namespace Proyecto1SpecialTicket.Controllers
     [Authorize(Roles = "Administrador")]
     public class TipoEventosController : Controller
     {
-        private readonly specialticketContext _context;
+        //private readonly specialticketContext _context;
+        private readonly ITipoEventoService _tipoEventoService;
         private readonly UserManager<Proyecto1SpecialTicketUser> _userManager;
 
-        public TipoEventosController(specialticketContext context, UserManager<Proyecto1SpecialTicketUser> userManager)
+        public TipoEventosController(ITipoEventoService tipoEventoService, UserManager<Proyecto1SpecialTicketUser> userManager)
         {
-            _context = context;
+            //_context = context;
+            _tipoEventoService = tipoEventoService;
             _userManager = userManager;
         }
 
         // GET: TipoEventos
         public async Task<IActionResult> Index()
         {
-              return _context.TipoEventos != null ? 
-                          View(await _context.TipoEventos.ToListAsync()) :
-                          Problem("Entity set 'specialticketContext.TipoEventos'  is null.");
+            return View(await _tipoEventoService.GetAllTipoEventosAsync());
         }
 
         // GET: TipoEventos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.TipoEventos == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var tipoEvento = await _context.TipoEventos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoEvento == null)
-            {
-                return NotFound();
-            }
+            var tipoEvento = await _tipoEventoService.GetTipoEventoByIdAsync(id);
+
+            if (tipoEvento == null) return NotFound();
 
             return View(tipoEvento);
         }
@@ -69,8 +64,9 @@ namespace Proyecto1SpecialTicket.Controllers
                 var userId = _userManager.GetUserId(User);
                 tipoEvento.CreatedBy = userId;
                 tipoEvento.UpdatedBy = userId;
-                _context.Add(tipoEvento);
-                await _context.SaveChangesAsync();
+                //_context.Add(tipoEvento);
+                //await _context.SaveChangesAsync();
+                await _tipoEventoService.CreateTipoEventoAsync(tipoEvento);
                 return RedirectToAction(nameof(Index));
             }
             return View(tipoEvento);
@@ -79,16 +75,12 @@ namespace Proyecto1SpecialTicket.Controllers
         // GET: TipoEventos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.TipoEventos == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var tipoEvento = await _context.TipoEventos.FindAsync(id);
-            if (tipoEvento == null)
-            {
-                return NotFound();
-            }
+            var tipoEvento = await _tipoEventoService.GetTipoEventoByIdAsync(id);
+
+            if (tipoEvento == null) return NotFound();
+
             return View(tipoEvento);
         }
 
@@ -99,37 +91,26 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active")] TipoEvento tipoEvento)
         {
-            if (id != tipoEvento.Id)
-            {
-                return NotFound();
-            }
+            if (id != tipoEvento.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //var fechaCreacion = _context.TipoEventos
+                    //    .Where(te => te.Id == tipoEvento.Id)
+                    //    .Select(te => te.CreatedAt)
+                    //    .FirstOrDefault();
+                    //tipoEvento.CreatedAt = fechaCreacion;
                     var userId = _userManager.GetUserId(User);
-                    var fechaCreacion = _context.TipoEventos
-                        .Where(te => te.Id == tipoEvento.Id)
-                        .Select(te => te.CreatedAt)
-                        .FirstOrDefault();
-                    DateTime currentDateTime = DateTime.Now;
-                    tipoEvento.CreatedAt = fechaCreacion;
                     tipoEvento.UpdatedBy = userId;
-                    tipoEvento.UpdatedAt = currentDateTime;
-                    _context.Update(tipoEvento);
-                    await _context.SaveChangesAsync();
+                    await _tipoEventoService.UpdateTipoEventoAsync(tipoEvento);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!TipoEventoExists(tipoEvento.Id))
-                    {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -139,17 +120,11 @@ namespace Proyecto1SpecialTicket.Controllers
         // GET: TipoEventos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.TipoEventos == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var tipoEvento = await _context.TipoEventos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tipoEvento == null)
-            {
-                return NotFound();
-            }
+            var tipoEvento = await _tipoEventoService.GetTipoEventoByIdAsync(id);
+
+            if (tipoEvento == null) return NotFound();
 
             return View(tipoEvento);
         }
@@ -159,23 +134,26 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.TipoEventos == null)
+            var tipoEvento = await _tipoEventoService.GetTipoEventoByIdAsync(id);
+            tipoEvento.Active = false;
+
+            try
             {
-                return Problem("Entity set 'specialticketContext.TipoEventos'  is null.");
+                await _tipoEventoService.UpdateTipoEventoAsync(tipoEvento);
             }
-            var tipoEvento = await _context.TipoEventos.FindAsync(id);
-            if (tipoEvento != null)
+            catch (DbUpdateConcurrencyException)
             {
-                _context.TipoEventos.Remove(tipoEvento);
+                if (!TipoEventoExists(tipoEvento.Id))
+                    return NotFound();
+                else throw;
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool TipoEventoExists(int id)
         {
-          return (_context.TipoEventos?.Any(e => e.Id == id)).GetValueOrDefault();
+          return _tipoEventoService.GetTipoEventoByIdAsync(id) == null ? true : false;
         }
     }
 }

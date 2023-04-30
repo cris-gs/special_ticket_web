@@ -8,8 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.Models;
+using Proyecto1SpecialTicket.BLL.Services.Implementations;
+using Proyecto1SpecialTicket.DAL.DataContext;
 
 namespace Proyecto1SpecialTicket.Controllers
 {
@@ -17,62 +20,60 @@ namespace Proyecto1SpecialTicket.Controllers
     public class ComprasController : Controller
     {
         private readonly specialticketContext _context;
+        private readonly ICompraService _compraService;
+        private readonly IEntradaService _entradaService;
         private readonly UserManager<Proyecto1SpecialTicketUser> _userManager;
 
-        public ComprasController(specialticketContext context, UserManager<Proyecto1SpecialTicketUser> userManager)
+        public ComprasController(specialticketContext context, ICompraService compraService, IEntradaService entradaService, UserManager<Proyecto1SpecialTicketUser> userManager)
         {
             _context = context;
+            _compraService = compraService;
+            _entradaService = entradaService;
             _userManager = userManager;
         }
 
         // GET: Compras
+        [Authorize(Roles = "Administrador, Cliente")]
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
 
-            var query = from ur in _context.UserRoles
-                        join r in _context.Roles
-                        on ur.RoleId equals r.Id
-                        select new
-                        {
-                            Id = ur.UserId,
-                            NameRole = r.Name,
-                        };
-            bool tienePermiso = false;
-            foreach (var resultado in query)
-            {
-                if (userId == resultado.Id && resultado.NameRole == "Administrador")
-                {
-                    tienePermiso = true;
-                }
-            }
-            if (!tienePermiso)
-            {
-                return RedirectToAction("Events", "DetalleEventos");
-            }
+            //var query = from ur in _context.UserRoles
+            //            join r in _context.Roles
+            //            on ur.RoleId equals r.Id
+            //            select new
+            //            {
+            //                Id = ur.UserId,
+            //                NameRole = r.Name,
+            //            };
+            //bool tienePermiso = false;
+            //foreach (var resultado in query)
+            //{
+            //    if (userId == resultado.Id && resultado.NameRole == "Administrador")
+            //    {
+            //        tienePermiso = true;
+            //    }
+            //}
+            //if (!tienePermiso)
+            //{
+            //    return RedirectToAction("Events", "DetalleEventos");
+            //}
 
-            var specialticketContext = _context.Compras;
-            return View(await specialticketContext.ToListAsync());
+            return View(await _compraService.GetCompraByIdClienteAsync(userId));
         }
 
         // GET: Compras/Details/5
-        [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador, Cliente")]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Compras == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             //var compra = await _context.Compras
             //    .include(c => c.idclientenavigation)
             //    .include(c => c.identradanavigation)
             //    .firstordefaultasync(m => m.id == id);
-            var compra = await _context.Compras.FirstOrDefaultAsync(c => c.Id == id);
-            if (compra == null)
-            {
-                return NotFound();
-            }
+            var compra = await _compraService.GetCompraByIdAsync(id);
+            if (compra == null) return NotFound();
 
             return View(compra);
         }
@@ -97,11 +98,11 @@ namespace Proyecto1SpecialTicket.Controllers
             var error = false;
             var userId = _userManager.GetUserId(User);
 
-            var entradaNavigation = await _context.Entradas.FindAsync(compra.IdEntrada);
+            var entradaNavigation = await _entradaService.GetEntradaByIdAsync(compra.IdEntrada);
             compra.IdEntradaNavigation = entradaNavigation;
 
             // Validación 1: Cantidad de entradas a comprar
-            var entrada = await _context.Entradas.FindAsync(compra.IdEntrada);
+            var entrada = await _entradaService.GetEntradaByIdAsync(compra.IdEntrada);
             if (entrada == null)
             {
                 ModelState.AddModelError("IdEntrada", "La entrada no existe.");
@@ -131,13 +132,12 @@ namespace Proyecto1SpecialTicket.Controllers
                 compra.CreatedBy = userId;
                 compra.UpdatedBy = userId;
                 compra.IdCliente = userId;
-                _context.Add(compra);
-                await _context.SaveChangesAsync();
+                await _compraService.CreateCompraAsync(compra);
 
                 if (entrada != null)
                 {
                     entrada.Disponibles -= compra.Cantidad;
-                    _context.SaveChanges();
+                    await _entradaService.UpdateEntradaAsync(entrada);
                 }
 
                 return RedirectToAction(nameof(Index));
@@ -150,18 +150,15 @@ namespace Proyecto1SpecialTicket.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Compras == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var compra = await _context.Compras.FindAsync(id);
-            if (compra == null)
-            {
-                return NotFound();
-            }
+            var compra = await _compraService.GetCompraByIdAsync(id);
+            if (compra == null) return NotFound();
+
             ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id", compra.IdCliente);
-            ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntradaNavigation);
+            var listaEntradas = await _entradaService.GetAllEntradasAsync();
+            ViewData["IdEntrada"] = new SelectList(listaEntradas, "Id", "Id", compra.IdEntrada);
+            //ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntradaNavigation);
             return View(compra);
         }
 
@@ -173,10 +170,7 @@ namespace Proyecto1SpecialTicket.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Cantidad,FechaReserva,FechaPago,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdCliente,IdEntrada")] Compra compra)
         {
-            if (id != compra.Id)
-            {
-                return NotFound();
-            }
+            if (id != compra.Id) return NotFound();
 
             //var idCliente = _context.Compras
             //    .Where(c => c.Id == id)
@@ -187,7 +181,7 @@ namespace Proyecto1SpecialTicket.Controllers
             //.Include(a => a.IdEntradaNavigation)
             //.FirstOrDefaultAsync(a => a.Id == id);
 
-            var entradaNavigation = await _context.Entradas.FindAsync(compra.IdEntrada);
+            var entradaNavigation = await _entradaService.GetEntradaByIdAsync(compra.IdEntrada);
             compra.IdEntradaNavigation = entradaNavigation;
 
             //compra.IdCliente = idCliente;
@@ -198,23 +192,21 @@ namespace Proyecto1SpecialTicket.Controllers
             try
             {
                 var compraAnterior = await _context.Compras.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
-                var entrada = await _context.Entradas.FindAsync(compra.IdEntrada);
+                var entrada = await _entradaService.GetEntradaByIdAsync(compra.IdEntrada);
                 var userId = _userManager.GetUserId(User);
-                var fechaCreacion = _context.Compras
-                    .Where(te => te.Id == compra.Id)
-                    .Select(te => te.CreatedAt)
-                    .FirstOrDefault();
-                DateTime currentDateTime = DateTime.Now;
-                compra.CreatedAt = fechaCreacion;
+                //var fechaCreacion = _context.Compras
+                //    .Where(te => te.Id == compra.Id)
+                //    .Select(te => te.CreatedAt)
+                //    .FirstOrDefault();
+                //compra.CreatedAt = fechaCreacion;
                 compra.UpdatedBy = userId;
-                compra.UpdatedAt = currentDateTime;
                 if (compraAnterior != null && entrada != null)
                 {
                     var diferencia = compraAnterior.Cantidad - compra.Cantidad;
                     if (diferencia < entrada.Disponibles)
                     {
                         entrada.Disponibles += diferencia;
-                        _context.SaveChanges();
+                        await _entradaService.UpdateEntradaAsync(entrada);
                     }
                     else
                     {
@@ -227,8 +219,7 @@ namespace Proyecto1SpecialTicket.Controllers
                     ModelState.AddModelError("Cantidad", "No se pudo editar la entrada");
                     return View(compra);
                 }
-                _context.Update(compra);
-                await _context.SaveChangesAsync();
+                await _compraService.UpdateCompraAsync(compra);
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
@@ -240,7 +231,9 @@ namespace Proyecto1SpecialTicket.Controllers
                 else
                 {
                     ViewData["IdCliente"] = new SelectList(_context.Users, "Id", "Id", compra.IdCliente);
-                    ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntradaNavigation);
+                    var listaEntradas = await _entradaService.GetAllEntradasAsync();
+                    ViewData["IdEntrada"] = new SelectList(listaEntradas, "Id", "Id", compra.IdEntrada);
+                    //ViewData["IdEntrada"] = new SelectList(_context.Entradas, "Id", "Id", compra.IdEntradaNavigation);
                     return View(compra);
                 }
             }
@@ -250,16 +243,11 @@ namespace Proyecto1SpecialTicket.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Compras == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var compra = await _context.Compras.FirstOrDefaultAsync(c => c.Id == id);
-            if (compra == null)
-            {
-                return NotFound();
-            }
+            var compra = await _compraService.GetCompraByIdAsync(id);
+
+            if (compra == null) return NotFound();
 
             return View(compra);
         }
@@ -270,20 +258,26 @@ namespace Proyecto1SpecialTicket.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Compras == null)
-            {
-                return Problem("Entity set 'SpecialticketContext.Compras'  is null.");
-            }
-            var compra = await _context.Compras.FindAsync(id);
+            var compra = await _compraService.GetCompraByIdAsync(id);
+            compra.Active = false;
+
             if (compra != null)
             {
-                var entrada = await _context.Entradas.FindAsync(compra.IdEntrada);
+                var entrada = await _entradaService.GetEntradaByIdAsync(compra.IdEntrada);
                 if (entrada != null)
                 {
                     entrada.Disponibles += compra.Cantidad;
-                    _context.SaveChanges();
-                    _context.Compras.Remove(compra);
-                    await _context.SaveChangesAsync();
+                    await _entradaService.UpdateEntradaAsync(entrada);
+                    try
+                    {
+                        await _compraService.UpdateCompraAsync(compra);
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!CompraExists(compra.Id))
+                            return NotFound();
+                        else throw;
+                    }
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -295,7 +289,7 @@ namespace Proyecto1SpecialTicket.Controllers
         [Authorize(Roles = "Administrador")]
         private bool CompraExists(int id)
         {
-          return (_context.Compras?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _compraService.GetCompraByIdAsync(id) == null ? true : false;
         }
     }
 }

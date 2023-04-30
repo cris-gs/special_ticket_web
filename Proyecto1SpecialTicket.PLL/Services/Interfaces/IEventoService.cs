@@ -4,7 +4,7 @@ using Proyecto1SpecialTicket.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Proyecto1SpecialTicket.BLL.Services.Implementations
+namespace Proyecto1SpecialTicket.BLL.Services.Interfaces
 {
     /// <summary>
     /// Service Interface for Evento. 
@@ -22,7 +22,9 @@ namespace Proyecto1SpecialTicket.BLL.Services.Implementations
 
         Task<IEnumerable<DetalleEvento>> GetDetalleEventosAsync();
 
-        Task<DetalleAsiento> GetEventoAsientosAsync(int? id);
+        Task<DetalleEvento> GetDetalleEventosByIdAsync(int? id);
+
+        Task<IEnumerable<DetalleAsiento>> GetDetalleAsientosAsync(int? id);
 
         //Task<Evento> GetDetallesEventosAsync();
         //Task<AspnetUserDo?> StartSessionAsync(LoginRequest login);

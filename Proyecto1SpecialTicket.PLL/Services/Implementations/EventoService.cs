@@ -1,14 +1,16 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.DAL.Repositories.Implementations;
 using Proyecto1SpecialTicket.DAL.Repositories.Interfaces;
 using Proyecto1SpecialTicket.Models;
+using Proyecto1SpecialTicket.Models.Entities;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpecialTicket.BLL.Services.Implementations
+namespace Proyecto1SpecialTicket.BLL.Services.Implementations
 {
     /// <summary>
     /// Service for Evento
@@ -42,12 +44,15 @@ namespace SpecialTicket.BLL.Services.Implementations
 
         public async Task<Evento> CreateEventoAsync(Evento evento)
         {
+            evento.Active = true;
             var lista = await _eventoRepository.AddAsync(evento);
             return lista;
         }
 
         public async Task<Evento> UpdateEventoAsync(Evento evento)
         {
+            DateTime currentDateTime = DateTime.Now;
+            evento.UpdatedAt = currentDateTime;
             var lista = await _eventoRepository.UpdateAsync(evento);
             return lista;
         }
@@ -58,9 +63,15 @@ namespace SpecialTicket.BLL.Services.Implementations
             return lista;
         }
 
-        public async Task<EventoAsientos> GetEventoAsientosAsync(int? id)
+        public async Task<DetalleEvento> GetDetalleEventosByIdAsync(int? id)
         {
-            var eventoAsientos = await _eventoRepository.GetEventoAsientosAsync(id);
+            var lista = await _eventoRepository.GetDetalleEventosByIdAsync(id);
+            return lista;
+        }
+
+        public async Task<IEnumerable<DetalleAsiento>> GetDetalleAsientosAsync(int? id)
+        {
+            var eventoAsientos = await _eventoRepository.GetDetalleAsientosAsync(id);
             return eventoAsientos;
         }
         

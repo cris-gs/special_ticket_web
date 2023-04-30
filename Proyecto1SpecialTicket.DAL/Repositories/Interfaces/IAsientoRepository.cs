@@ -11,7 +11,7 @@ namespace Proyecto1SpecialTicket.DAL.Repositories.Interfaces
     {
         Task<IEnumerable<Asiento>> GetAllAsientosAsync();
 
-        Task<Asiento> GetAsientosByIdAsync(int id);
+        Task<Asiento> GetAsientosByIdAsync(int? id);
     }
 
     

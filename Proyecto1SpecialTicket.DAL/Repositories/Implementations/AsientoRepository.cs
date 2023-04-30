@@ -30,7 +30,7 @@ namespace Proyecto1SpecialTicket.DAL.Repositories.Implementations
                                  .ToListAsync();
         }
 
-        public async Task<Asiento> GetAsientosByIdAsync(int id)
+        public async Task<Asiento> GetAsientosByIdAsync(int? id)
         {
             return await _context.Asientos
                                  .Where(t => t.Active)

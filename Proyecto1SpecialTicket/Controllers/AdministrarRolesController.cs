@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
 using Proyecto1SpecialTicket.Models;
 using Proyecto1SpecialTicket.Models.Entities;
+using Proyecto1SpecialTicket.DAL.DataContext;
 
 namespace Proyecto1SpecialTicket.Controllers
 {

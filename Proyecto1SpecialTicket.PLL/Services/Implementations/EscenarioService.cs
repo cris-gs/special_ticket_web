@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.DAL.Repositories.Implementations;
 using Proyecto1SpecialTicket.DAL.Repositories.Interfaces;
 using Proyecto1SpecialTicket.Models;
@@ -37,12 +38,13 @@ namespace Proyecto1SpecialTicket.BLL.Services.Implementations
 
         public async Task<Escenario> GetEscenariosByIdAsync(int? id)
         {
-             var lista = await _escenarioRepository.GetEscenarioByIdAsync(id);
+            var lista = await _escenarioRepository.GetEscenarioByIdAsync(id);
              return lista;
         }
 
         public async Task<Escenario> CreateEscenariosAsync(Escenario escenario)
         {
+            escenario.Active = true;
             var lista = await _escenarioRepository.AddAsync(escenario);
             return lista;
         }

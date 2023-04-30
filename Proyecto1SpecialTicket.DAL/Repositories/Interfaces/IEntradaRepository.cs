@@ -1,5 +1,6 @@
 ﻿using Proyecto1SpecialTicket.DAL.Repositories.Implementations;
 using Proyecto1SpecialTicket.Models;
+using Proyecto1SpecialTicket.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace Proyecto1SpecialTicket.DAL.Repositories.Interfaces
@@ -13,7 +14,9 @@ namespace Proyecto1SpecialTicket.DAL.Repositories.Interfaces
 
         Task<Entrada> GetEntradaByIdAsync(int? id);
 
-        Task<Entrada> GetEntradaByIdEventoAsync(int? id);
+        Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento);
+
+        Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id);
 
     }
 

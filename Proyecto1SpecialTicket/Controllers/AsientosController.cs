@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
+using Proyecto1SpecialTicket.IdentityData;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.Models;
 
 namespace Proyecto1SpecialTicket.Controllers
@@ -16,45 +17,42 @@ namespace Proyecto1SpecialTicket.Controllers
     [Authorize(Roles = "Administrador")]
     public class AsientosController : Controller
     {
-        private readonly specialticketContext _context;
+        //private readonly specialticketContext _context;
+        private readonly IAsientoService _asientoService;
+        private readonly IEscenarioService _escenarioService;
         private readonly UserManager<Proyecto1SpecialTicketUser> _userManager;
 
-        public AsientosController(specialticketContext context, UserManager<Proyecto1SpecialTicketUser> userManager)
+        public AsientosController(IAsientoService asientoService, IEscenarioService escenarioService, UserManager<Proyecto1SpecialTicketUser> userManager)
         {
-            _context = context;
+            //_context = context;
+            _asientoService = asientoService;
+            _escenarioService = escenarioService;
             _userManager = userManager;
         }
 
         // GET: Asientos
         public async Task<IActionResult> Index()
         {
-            var specialticketContext = _context.Asientos.Include(a => a.IdEscenarioNavigation);
-            return View(await specialticketContext.ToListAsync());
+            return View(await _asientoService.GetAllAsientosAsync());
         }
 
         // GET: Asientos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Asientos == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var asiento = await _context.Asientos
-                .Include(a => a.IdEscenarioNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (asiento == null)
-            {
-                return NotFound();
-            }
+            var asiento = await _asientoService.GetAsientosByIdAsync(id);
+
+            if (asiento == null) return NotFound();
 
             return View(asiento);
         }
 
         // GET: Asientos/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id");
+            var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
             return View();
         }
 
@@ -65,36 +63,34 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descripcion,Cantidad,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] Asiento asiento)
         {
-            var eventoNavigation = await _context.Escenarios.FindAsync(asiento.IdEscenario);
-            asiento.IdEscenarioNavigation = eventoNavigation;
+            var escenarioNavigation = await _escenarioService.GetEscenariosByIdAsync(asiento.IdEscenario);
+            asiento.IdEscenarioNavigation = escenarioNavigation;
 
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
                 asiento.CreatedBy = userId;
                 asiento.UpdatedBy = userId;
-                _context.Add(asiento);
-                await _context.SaveChangesAsync();
+                //_context.Add(asiento);
+                //await _context.SaveChangesAsync();
+                await _asientoService.CreateAsientosAsync(asiento);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
+            var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
             return View(asiento);
         }
 
         // GET: Asientos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Asientos == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var asiento = await _context.Asientos.FindAsync(id);
-            if (asiento == null)
-            {
-                return NotFound();
-            }
-            ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
+            var asiento = await _asientoService.GetAsientosByIdAsync(id);
+            if (asiento == null) return NotFound();
+
+            var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre", asiento.IdEscenario);
             return View(asiento);
         }
 
@@ -105,29 +101,24 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Cantidad,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEscenario")] Asiento asiento)
         {
-            if (id != asiento.Id)
-            {
-                return NotFound();
-            }
-            var eventoNavigation = await _context.Escenarios.FindAsync(asiento.IdEscenario);
-            asiento.IdEscenarioNavigation = eventoNavigation;
+            if (id != asiento.Id) return NotFound();
+
+            var escenarioNavigation = await _escenarioService.GetEscenariosByIdAsync(asiento.IdEscenario);
+            asiento.IdEscenarioNavigation = escenarioNavigation;
 
             //if (ModelState.IsValid)
             //{
             //}
             try
             {
+                //var fechaCreacion = _context.Asientos
+                //    .Where(te => te.Id == asiento.Id)
+                //    .Select(te => te.CreatedAt)
+                //    .FirstOrDefault();
+                //asiento.CreatedAt = fechaCreacion;
                 var userId = _userManager.GetUserId(User);
-                var fechaCreacion = _context.Asientos
-                    .Where(te => te.Id == asiento.Id)
-                    .Select(te => te.CreatedAt)
-                    .FirstOrDefault();
-                DateTime currentDateTime = DateTime.Now;
-                asiento.CreatedAt = fechaCreacion;
                 asiento.UpdatedBy = userId;
-                asiento.UpdatedAt = currentDateTime;
-                _context.Update(asiento);
-                await _context.SaveChangesAsync();
+                await _asientoService.UpdateAsientosAsync(asiento);
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
@@ -138,7 +129,8 @@ namespace Proyecto1SpecialTicket.Controllers
                 }
                 else
                 {
-                    ViewData["IdEscenario"] = new SelectList(_context.Escenarios, "Id", "Id", asiento.IdEscenario);
+                    var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
+                    ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre", asiento.IdEscenario);
                     return View(asiento);
                 }
             }
@@ -149,18 +141,11 @@ namespace Proyecto1SpecialTicket.Controllers
         // GET: Asientos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Asientos == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var asiento = await _context.Asientos
-                .Include(a => a.IdEscenarioNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (asiento == null)
-            {
-                return NotFound();
-            }
+            var asiento = await _asientoService.GetAsientosByIdAsync(id);
+
+            if (asiento == null) return NotFound();
 
             return View(asiento);
         }
@@ -170,23 +155,26 @@ namespace Proyecto1SpecialTicket.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Asientos == null)
+            var asiento = await _asientoService.GetAsientosByIdAsync(id);
+            asiento.Active = false;
+
+            try
             {
-                return Problem("Entity set 'specialticketContext.Asientos'  is null.");
+                await _asientoService.UpdateAsientosAsync(asiento);
             }
-            var asiento = await _context.Asientos.FindAsync(id);
-            if (asiento != null)
+            catch (DbUpdateConcurrencyException)
             {
-                _context.Asientos.Remove(asiento);
+                if (!AsientoExists(asiento.Id))
+                    return NotFound();
+                else throw;
             }
             
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AsientoExists(int id)
         {
-          return (_context.Asientos?.Any(e => e.Id == id)).GetValueOrDefault();
+          return _asientoService.GetAsientosByIdAsync(id) == null ? true : false;
         }
     }
 }

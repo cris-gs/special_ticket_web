@@ -13,7 +13,8 @@ namespace Proyecto1SpecialTicket.DAL.Repositories.Interfaces
         Task<IEnumerable<Evento>> GetAllEventosAsync();
         Task<Evento> GetEventoByIdAsync(int? id);
         Task<IEnumerable<DetalleEvento>> GetDetalleEventosAsync();
-        Task<DetalleAsiento> GetEventoAsientosAsync(int? id);
+        Task<DetalleEvento> GetDetalleEventosByIdAsync(int? id);
+        Task<IEnumerable<DetalleAsiento>> GetDetalleAsientosAsync(int? id);
     }
 
     

@@ -4,77 +4,61 @@ using Proyecto1SpecialTicket.DAL.Repositories.Implementations;
 using Proyecto1SpecialTicket.DAL.Repositories.Interfaces;
 using Proyecto1SpecialTicket.Models;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text.Json;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Proyecto1SpecialTicket.BLL.Services.Implementations
 {
     /// <summary>
-    /// Service for TipoEvento
+    /// Service for Asiento
     /// </summary>
-    public class TipoEventoService : ITipoEventoService
+    public class AsientoService : IAsientoService
     {
-        private readonly ITipoEventoRepository _tipoEventoRepository;
+        private readonly IAsientoRepository _asientoRepository;
         private readonly IConfiguration _config;
 
-        public TipoEventoService()
+        public AsientoService()
         {
         }
 
         /// <summary>
-        /// Constructor of TipoEventoService
+        /// Constructor of EventoService
         /// </summary>
-        /// <param name="TipoEventoRepository"></param>
-        public TipoEventoService(ITipoEventoRepository TipoEventoRepository, IConfiguration config)
+        /// <param name="asientoRepository"></param>
+        public AsientoService(IAsientoRepository asientoRepository, IConfiguration config)
         {
-            _tipoEventoRepository = TipoEventoRepository;
+            _asientoRepository = asientoRepository;
             _config = config;   
         }
 
-
-        public async Task<IEnumerable<TipoEvento>> GetAllTipoEventosAsync()
+        public async Task<IEnumerable<Asiento>> GetAllAsientosAsync()
         {
-             var lista = await _tipoEventoRepository.GetAllTipoEventosAsync();
+            var lista = await _asientoRepository.GetAllAsientosAsync();
+            return lista;
+        }
+
+        public async Task<Asiento> GetAsientosByIdAsync(int? id)
+        {
+             var lista = await _asientoRepository.GetAsientosByIdAsync(id);
              return lista;
         }
 
-        public async Task<TipoEvento> GetTipoEventoByIdAsync(int? id)
+        public async Task<Asiento> CreateAsientosAsync(Asiento asiento)
         {
-            var lista = await _tipoEventoRepository.GetTipoEventoByIdAsync(id);
+            asiento.Active = true;
+            var lista = await _asientoRepository.AddAsync(asiento);
             return lista;
         }
 
-        public async Task<TipoEvento> CreateTipoEventoAsync(TipoEvento tipoEvento)
-        {
-            tipoEvento.Active = true;
-            var lista = await _tipoEventoRepository.AddAsync(tipoEvento);
-            return lista;
-        }
-
-        public async Task<TipoEvento> UpdateTipoEventoAsync(TipoEvento tipoEvento)
+        public async Task<Asiento> UpdateAsientosAsync(Asiento asiento)
         {
             DateTime currentDateTime = DateTime.Now;
-            tipoEvento.UpdatedAt = currentDateTime;
-            var lista = await _tipoEventoRepository.UpdateAsync(tipoEvento);
+            asiento.UpdatedAt = currentDateTime;
+            var lista = await _asientoRepository.UpdateAsync(asiento);
             return lista;
         }
 
-        //public async Task<IEnumerable<TipoEvento>> GetAllTipoEventosAsync()
-        //{
-        //     var lista = await _TipoEventoRepository.GetAllTipoEventosAsync();
-        //     return lista;
-        //}
 
-        //public async Task<IEnumerable<TipoEvento>> GetTipoEventoByIdAsync(int? id)
-        //{
-        //     var lista = await _TipoEventoRepository.GetTipoEventoByIdAsync(id);
-        //    var lista2 = await _TipoEventoRepository.GetByIdAsync(id);
-        //     return lista;
-        //}
-
-        //public async Task<TipoEvento> GetDetallesEventosAsync()
+        //public async Task<Evento> GetDetallesEventosAsync()
         //{
         //    return (Evento)await _eventoRepository.GetAllEventosAsync();
         //}

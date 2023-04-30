@@ -30,7 +30,7 @@
                         @Html.DisplayFor(modelItem => item.Cantidad)
                     </td>
                     <td>
-                        <a asp-action="Create" asp-route-id="@item.Id" asp-route-idE="@item.IdEvento" class="btn btn-success pe-2"><i class="fa-solid fa-plus pe-1 text-white"></i></a>
+                        <a asp-action="Create" asp-route-idAsiento="@item.Id" asp-route-idEvento="@item.IdEvento" class="btn btn-success pe-2"><i class="fa-solid fa-plus pe-1 text-white"></i></a>
                     </td>
                 </tr>
             }

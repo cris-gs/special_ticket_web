@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Proyecto1SpecialTicket.Areas.Identity.Data;
-using Proyecto1SpecialTicket.BLL.Services.Implementations;
+using Proyecto1SpecialTicket.IdentityData;
+using Proyecto1SpecialTicket.BLL.Services.Interfaces;
 using Proyecto1SpecialTicket.Models;
 using SkiaSharp;
 
@@ -74,7 +74,7 @@ namespace Proyecto1SpecialTicket.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
-            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre", tipoEscenario.IdEscenario);
             return View(tipoEscenario);
         }
 
@@ -87,7 +87,7 @@ namespace Proyecto1SpecialTicket.Controllers
             if (tipoEscenario == null) return NotFound();
 
             var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
-            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
+            ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre", tipoEscenario.IdEscenario);
             return View(tipoEscenario);
         }
 
@@ -128,7 +128,7 @@ namespace Proyecto1SpecialTicket.Controllers
                 else
                 {
                     var listaEscenarios = await _escenarioService.GetAllEscenariosAsync();
-                    ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre");
+                    ViewData["IdEscenario"] = new SelectList(listaEscenarios, "Id", "Nombre", tipoEscenario.IdEscenario);
 
                     return View(tipoEscenario);
                 }

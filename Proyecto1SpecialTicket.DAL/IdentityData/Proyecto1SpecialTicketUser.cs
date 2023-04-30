@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace Proyecto1SpecialTicket.Areas.Identity.Data;
+namespace Proyecto1SpecialTicket.IdentityData;
 
 // Add profile data for application users by adding properties to the Proyecto1SpecialTicketUser class
 public class Proyecto1SpecialTicketUser : IdentityUser
